@@ -1,36 +1,118 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js Application
 
-## Getting Started
+A modern web application built with Next.js 15, React 19, and TypeScript.
 
-First, run the development server:
+## Requirements
+
+- Node.js >= 20
+- pnpm >= 9
+
+## Installation
+
+1. Clone the repository:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd <project-directory>
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Development
 
-## Learn More
+Run the development server with Turbopack enabled:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The application will be available at [http://localhost:3000](http://localhost:3000).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Building and Running for Production
 
-## Deploy on Vercel
+Build the application:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+pnpm build
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Start the production server:
+
+```bash
+pnpm start
+```
+
+## Docker Deployment
+
+This project includes Docker support with multi-stage builds for optimal production deployment.
+
+1. Build the Docker image:
+
+```bash
+docker build -t manager-app .
+```
+
+2. Run the container:
+
+```bash
+docker run -p 3000:3000 manager-app
+```
+
+The application is configured for standalone output, optimizing it for containerized deployments.
+
+## Updating Dependencies
+
+Update all dependencies to their latest versions:
+
+```bash
+pnpm update
+```
+
+Update a specific package:
+
+```bash
+pnpm update <package-name>
+```
+
+## Project Configuration
+
+- TypeScript support with strict type checking
+- ESLint for code quality
+- Tailwind CSS for styling
+- Turbopack for faster development builds
+- Standalone output configuration for optimized deployments
+
+## Available Scripts
+
+- `pnpm dev` - Start development server with Turbopack
+- `pnpm build` - Create production build
+- `pnpm start` - Start production server
+- `pnpm lint` - Run ESLint for code quality checks
+
+## Environment Variables
+
+Create a `.env.local` file in the root directory for local development:
+
+```bash
+# Example environment variables
+NEXT_PUBLIC_API_URL=your_api_url
+```
+
+## Deployment Options
+
+1. **Docker (Recommended)**
+
+   - Uses multi-stage builds for minimal image size
+   - Includes security best practices
+   - Configured for production optimization
+
+2. **Traditional Deployment**
+
+   - Build the application using `pnpm build`
+   - Start the server using `pnpm start`
+   - Ensure Node.js 20 or higher is installed on the server
+
