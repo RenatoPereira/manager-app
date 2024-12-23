@@ -11,6 +11,7 @@
     "test:watch": "jest --watch",
     "format": "prettier --write .",
     "lint-staged": "lint-staged",
+    "check-types": "tsc --noEmit --pretty",
     "prepare-commit-msg": "cz",
     "prepare": "husky"
   },
