@@ -115,4 +115,3 @@ NEXT_PUBLIC_API_URL=your_api_url
    - Build the application using `pnpm build`
    - Start the server using `pnpm start`
    - Ensure Node.js 20 or higher is installed on the server
-

@@ -1,20 +1,21 @@
-"use client";
+'use client'
 
-import { locales, Locale } from "@/locales/config.locale";
-import { setUserLocale } from "@/locales/database.locale";
-import { useTranslations } from "next-intl";
-import { useTransition } from "react";
+import { useTranslations } from 'next-intl'
+import { useTransition } from 'react'
+
+import { Locale, locales } from '@/locales/config.locale'
+import { setUserLocale } from '@/locales/database.locale'
 
 export const ExampleComponent = () => {
-  const t = useTranslations("Translation");
-  const [isPending, startTransition] = useTransition();
+  const t = useTranslations('Translation')
+  const [isPending, startTransition] = useTransition()
 
   function onChange(value: Locale) {
-    const locale = value;
+    const locale = value
 
     startTransition(() => {
-      setUserLocale(locale);
-    });
+      setUserLocale(locale)
+    })
   }
 
   return (
@@ -34,6 +35,5 @@ export const ExampleComponent = () => {
         ))
       )}
     </div>
-  );
-};
-
+  )
+}
