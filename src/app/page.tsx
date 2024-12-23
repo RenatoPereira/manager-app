@@ -1,6 +1,5 @@
-import { ExampleContainer } from "@/containers/example.container";
+import { ExampleContainer } from '@/containers/example.container'
 
 export default function Home() {
-  return <ExampleContainer />;
+  return <ExampleContainer />
 }
-
