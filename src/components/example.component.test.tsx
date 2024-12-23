@@ -1,57 +1,72 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { ExampleComponent } from "./example.component";
+import { setUserLocale } from "@/locales/database.locale";
+import React from "react";
+
+// Mock the required dependencies
+jest.mock("next-intl", () => ({
+  useTranslations: () => (key: string) => key,
+}));
+
+jest.mock("@/locales/database.locale", () => ({
+  setUserLocale: jest.fn(),
+}));
+
+jest.mock("@/locales/config.locale", () => ({
+  locales: ["en", "pt-br"],
+}));
 
 describe("ExampleComponent", () => {
-  it("renders the Next.js logo", () => {
-    render(<ExampleComponent />);
-    const logo = screen.getByAltText("Next.js logo");
-    expect(logo).toBeInTheDocument();
-    expect(logo).toHaveAttribute("src", "/next.svg");
-    expect(logo).toHaveAttribute("width", "180");
-    expect(logo).toHaveAttribute("height", "38");
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
-  it("renders the instructions list with correct items", () => {
+  it("renders all locale buttons", () => {
     render(<ExampleComponent />);
 
-    // Check if both list items are present
-    const listItems = screen.getAllByRole("listitem");
-    expect(listItems).toHaveLength(2);
-
-    // Check the content of the first list item
-    expect(screen.getByText(/Get started by editing/i)).toBeInTheDocument();
-    expect(screen.getByText("src/app/page.tsx")).toBeInTheDocument();
-
-    // Check the content of the second list item
-    expect(
-      screen.getByText("Save and see your changes instantly.")
-    ).toBeInTheDocument();
+    const buttons = screen.getAllByRole("button");
+    expect(buttons).toHaveLength(2);
+    expect(buttons[0]).toHaveTextContent("en");
+    expect(buttons[1]).toHaveTextContent("pt-br");
   });
 
-  it("renders the action buttons with correct links", () => {
+  it("applies correct button styles", () => {
     render(<ExampleComponent />);
 
-    // Check Deploy now button
-    const deployButton = screen.getByRole("link", { name: /deploy now/i });
-    expect(deployButton).toHaveAttribute(
-      "href",
-      "https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+    const button = screen.getByText("en");
+    expect(button).toHaveClass(
+      "rounded-full",
+      "border",
+      "border-solid",
+      "border-transparent",
+      "transition-colors",
+      "flex",
+      "items-center",
+      "justify-center",
+      "bg-foreground",
+      "text-background"
     );
-    expect(deployButton).toHaveAttribute("target", "_blank");
-    expect(deployButton).toHaveAttribute("rel", "noopener noreferrer");
+  });
 
-    // Check Vercel logo in deploy button
-    const vercelLogo = screen.getByAltText("Vercel logomark");
-    expect(vercelLogo).toBeInTheDocument();
-    expect(vercelLogo).toHaveAttribute("src", "/vercel.svg");
+  it("calls setUserLocale when a locale button is clicked", () => {
+    render(<ExampleComponent />);
 
-    // Check Docs button
-    const docsButton = screen.getByRole("link", { name: /read our docs/i });
-    expect(docsButton).toHaveAttribute(
-      "href",
-      "https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-    );
-    expect(docsButton).toHaveAttribute("target", "_blank");
-    expect(docsButton).toHaveAttribute("rel", "noopener noreferrer");
+    const enButton = screen.getByText("en");
+    fireEvent.click(enButton);
+
+    expect(setUserLocale).toHaveBeenCalledWith("en");
+  });
+
+  it("shows loading state during transition", () => {
+    // Mock useTransition to simulate loading state
+    jest
+      .spyOn(React, "useTransition")
+      .mockImplementation(() => [true, jest.fn()]);
+
+    render(<ExampleComponent />);
+
+    expect(screen.getByText("Loading...")).toBeInTheDocument();
+    expect(screen.queryByRole("button")).not.toBeInTheDocument();
   });
 });
+
