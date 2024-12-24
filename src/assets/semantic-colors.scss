@@ -1,0 +1,233 @@
+:root {
+  --color-primary: #10002b;
+  --color-secondary: #20003d;
+  --color-tertiary: #3c096c;
+  --color-quaternary: #5a189a;
+  --color-quinary: #7b2cbf;
+  --color-senary: #9d4edd;
+  --color-septenary: #c77dff;
+  --color-octonary: #e0aaff;
+  --color-nonary: #f7dfff;
+  --color-denary: #efefef;
+
+  --color-primary-inverted: #ffffff;
+  --color-secondary-inverted: #ffffff;
+  --color-tertiary-inverted: #ffffff;
+  --color-quaternary-inverted: #ffffff;
+  --color-quinary-inverted: #ffffff;
+  --color-senary-inverted: #ffffff;
+  --color-septenary-inverted: #ffffff;
+  --color-octonary-inverted: #ffffff;
+  --color-nonary-inverted: #ffffff;
+  --color-denary-inverted: #ffffff;
+}
+
+.text {
+  &-primary {
+    color: var(--color-primary);
+
+    &-inverted {
+      color: var(--color-primary-inverted);
+    }
+  }
+
+  &-secondary {
+    // TODO: Implement
+  }
+
+  &-tertiary {
+    // TODO: Implement
+  }
+
+  &-highlight {
+    // TODO: Implement
+  }
+
+  &-muted {
+    // TODO: Implement
+  }
+
+  &-disabled {
+    // TODO: Implement
+  }
+
+  &-success {
+    // TODO: Implement
+  }
+
+  &-error {
+    // TODO: Implement
+  }
+
+  &-warning {
+    // TODO: Implement
+  }
+}
+
+.bg {
+  &-base {
+    background-color: var(--color-denary);
+  }
+
+  &-primary {
+    background-color: var(--color-secondary);
+  }
+
+  &-secondary {
+    background-color: var(--color-tertiary);
+  }
+
+  &-tertiary {
+    background-color: var(--color-quaternary);
+  }
+
+  &-highlight {
+    background-color: var(--color-primary);
+  }
+
+  &-muted {
+    background-color: var(--color-octonary);
+  }
+}
+
+.border {
+  &-primary {
+    // TODO: Implement
+  }
+
+  &-secondary {
+    // TODO: Implement
+  }
+
+  &-tertiary {
+    // TODO: Implement
+  }
+
+  &-highlight {
+    // TODO: Implement
+  }
+
+  &-muted {
+    // TODO: Implement
+  }
+
+  &-disabled {
+    // TODO: Implement
+  }
+
+  &-success {
+    // TODO: Implement
+  }
+
+  &-error {
+    // TODO: Implement
+  }
+
+  &-warning {
+    // TODO: Implement
+  }
+}
+
+html.dark {
+  .text {
+    &-primary {
+      @apply text-slate-50;
+    }
+
+    &-secondary {
+      @apply text-slate-100;
+    }
+
+    &-tertiary {
+      @apply text-slate-200;
+    }
+
+    &-highlight {
+      @apply text-slate-700;
+    }
+
+    &-muted {
+      @apply text-slate-300;
+    }
+
+    &-disabled {
+      @apply text-slate-500;
+    }
+
+    &-success {
+      @apply text-teal-300;
+    }
+
+    &-error {
+      @apply text-red-300;
+    }
+
+    &-warning {
+      @apply text-yellow-300;
+    }
+  }
+
+  .bg {
+    &-base {
+      background-color: var(--color-secondary);
+    }
+
+    &-primary {
+      background-color: var(--color-tertiary);
+    }
+
+    &-secondary {
+      background-color: var(--color-quaternary);
+    }
+
+    &-tertiary {
+      background-color: var(--color-quinary);
+    }
+
+    &-highlight {
+      background-color: var(--color-primary);
+    }
+
+    &-muted {
+      background-color: var(--color-octonary);
+    }
+  }
+
+  .border {
+    &-primary {
+      border-color: var(--foreground);
+    }
+
+    &-secondary {
+      border-color: var(--foreground);
+    }
+
+    &-tertiary {
+      border-color: var(--foreground);
+    }
+
+    &-highlight {
+      border-color: var(--foreground);
+    }
+
+    &-muted {
+      border-color: var(--foreground);
+    }
+
+    &-disabled {
+      border-color: var(--foreground);
+    }
+
+    &-success {
+      border-color: var(--foreground);
+    }
+
+    &-error {
+      border-color: var(--foreground);
+    }
+
+    &-warning {
+      border-color: var(--foreground);
+    }
+  }
+}

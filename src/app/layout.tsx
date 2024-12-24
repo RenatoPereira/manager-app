@@ -3,7 +3,8 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages } from 'next-intl/server'
 import { Geist, Geist_Mono } from 'next/font/google'
 
-import '@/assets/main.css'
+import '@/assets/main.scss'
+import { DarkModeComponent } from '@/components/darkmode.component'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -33,10 +34,14 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen flex flex-col flex-nowrap`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen flex flex-col flex-nowrap bg-base`}
       >
-        <header className="flex justify-between items-center p-4 bg-gray-800 text-white shrink-0">
-          <h1 className="text-2xl font-bold">Manager APP</h1>
+        <header className="flex justify-between items-center p-4 bg-highlight shrink-0">
+          <h1 className="text-2xl font-bold text-primary-inverted">
+            Manager APP
+          </h1>
+
+          <DarkModeComponent display="fixed" />
         </header>
 
         <main className="flex flex-col h-full">
