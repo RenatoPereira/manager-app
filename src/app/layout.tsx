@@ -33,11 +33,17 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen flex flex-col flex-nowrap`}
       >
-        <NextIntlClientProvider messages={messages}>
-          {children}
-        </NextIntlClientProvider>
+        <header className="flex justify-between items-center p-4 bg-gray-800 text-white shrink-0">
+          <h1 className="text-2xl font-bold">Manager APP</h1>
+        </header>
+
+        <main className="flex flex-col h-full">
+          <NextIntlClientProvider messages={messages}>
+            {children}
+          </NextIntlClientProvider>
+        </main>
       </body>
     </html>
   )
