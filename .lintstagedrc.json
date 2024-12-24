@@ -1,5 +1,5 @@
 {
-  "**/!(*.(spec|test))*.{ts,tsx}": ["pwd && pnpm check-types"],
+  "**/!(*.(spec|test))*.{ts,tsx}": ["pnpm check-types"],
   "**/*.{js,jsx,ts,tsx}": ["prettier --write", "eslint --fix", "eslint"],
   "**/*.{json,md,yml}": ["prettier --write"],
   "**/*.{css,scss,less}": ["prettier --write"]
