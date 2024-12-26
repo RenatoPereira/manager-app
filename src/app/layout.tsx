@@ -6,7 +6,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import '@/assets/main.scss'
 import { BackgroundComponent } from '@/components/background'
 import { DarkModeComponent } from '@/components/darkmode.component'
-import { HeaderComponent } from '@/components/header/header.component'
+import { HeaderComponent } from '@/components/header.component'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -30,8 +30,6 @@ export default async function RootLayout({
 }>) {
   const locale = await getLocale()
 
-  // Providing all messages to the client
-  // side is the easiest way to get started
   const messages = await getMessages()
   return (
     <html lang={locale}>
