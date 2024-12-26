@@ -1,0 +1,87 @@
+.bg-bubbles {
+  --timer: 45s;
+  @apply absolute top-0 left-0 w-screen h-screen overflow-hidden bg-gradient-to-b from-[var(--color-denary)] to-[var(--color-octonary)];
+
+  .dark & {
+    @apply from-[var(--color-tertiary)] to-[var(--color-primary)];
+  }
+
+  span {
+    @apply absolute block size-8 -bottom-32 bg-[var(--color-quaternary)] opacity-5;
+
+    animation: square var(--timer) infinite;
+    transition-timing-function: linear;
+
+    .dark & {
+      @apply bg-white;
+    }
+
+    &:nth-child(1) {
+      @apply left-[10%];
+    }
+
+    &:nth-child(2) {
+      @apply left-[15%] size-16;
+
+      animation-delay: calc(var(--timer) / 10);
+      animation-duration: calc(var(--timer) * 0.7);
+    }
+
+    &:nth-child(3) {
+      @apply left-1/4;
+      animation-delay: calc(var(--timer) / 5);
+    }
+
+    &:nth-child(4) {
+      @apply left-[40%] size-12 opacity-15;
+
+      animation-duration: calc(var(--timer) * 0.9);
+    }
+
+    &:nth-child(5) {
+      left: 70%;
+    }
+
+    &:nth-child(6) {
+      @apply left-[80%] size-28 opacity-10;
+
+      animation-delay: calc(var(--timer) / 9);
+      background-color: fade(white, 20%);
+    }
+
+    &:nth-child(7) {
+      @apply left-[32%] size-32;
+
+      animation-delay: 7s;
+    }
+
+    &:nth-child(8) {
+      @apply left-[55%] size-5;
+
+      animation-delay: calc(var(--timer) / 10);
+      animation-duration: calc(var(--timer) * 1.5);
+    }
+
+    &:nth-child(9) {
+      @apply left-1/4 size-3 opacity-20;
+
+      animation-delay: calc(var(--timer) / 20);
+      animation-duration: calc(var(--timer) * 1.5);
+    }
+
+    &:nth-child(10) {
+      @apply left-[90%] size-32;
+
+      animation-delay: calc(var(--timer) / 6);
+    }
+  }
+}
+
+@keyframes square {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-120vh) rotate(600deg);
+  }
+}
