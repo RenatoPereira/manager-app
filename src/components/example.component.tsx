@@ -6,6 +6,8 @@ import { useTransition } from 'react'
 import { Locale, locales } from '@/locales/config.locale'
 import { setUserLocale } from '@/locales/database.locale'
 
+import { LoadingComponent } from './loading'
+
 export const ExampleComponent = () => {
   const t = useTranslations('Translation')
   const [isPending, startTransition] = useTransition()
@@ -21,7 +23,7 @@ export const ExampleComponent = () => {
   return (
     <div className="flex gap-4 items-center flex-col sm:flex-row">
       {isPending ? (
-        <p>Loading...</p>
+        <LoadingComponent scale={0.7} />
       ) : (
         locales.map((locale) => (
           <button
