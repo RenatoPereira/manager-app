@@ -1,9 +1,19 @@
 {
+  "ManagerApp": {
+    "title": "App de Gerenciamento",
+    "avatar-alt": "Avatar do Usuário"
+  },
   "HomePage": {
     "title": "Página Inicial"
   },
   "Translation": {
     "en": "Inglês",
     "pt-br": "Português"
+  },
+  "SignIn": {
+    "button": "Entrar com Google"
+  },
+  "SignOut": {
+    "button": "Sair"
   }
 }

@@ -1,9 +1,19 @@
 {
+  "ManagerApp": {
+    "title": "Manager APP",
+    "avatar-alt": "User Avatar"
+  },
   "HomePage": {
     "title": "Home Page"
   },
   "Translation": {
     "en": "English",
     "pt-br": "Portuguese"
+  },
+  "SignIn": {
+    "button": "Signin with Google"
+  },
+  "SignOut": {
+    "button": "Sign Out"
   }
 }
