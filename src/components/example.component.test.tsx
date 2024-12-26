@@ -67,7 +67,7 @@ describe('ExampleComponent', () => {
 
     render(<ExampleComponent />)
 
-    expect(screen.getByText('Loading...')).toBeInTheDocument()
+    expect(screen.getByTestId('loading-component')).toBeInTheDocument()
     expect(screen.queryByRole('button')).not.toBeInTheDocument()
   })
 })

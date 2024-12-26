@@ -1,0 +1,59 @@
+.loading-bubbles {
+  --bubble-time: 1s;
+  @apply relative place-self-center;
+
+  span {
+    @apply block size-6 absolute -ml-3 rounded-full bg-indigo-700/40 dark:bg-white/40 opacity-0;
+    animation: bubbleUp var(--bubble-time) infinite ease-in-out;
+
+    &:nth-child(2) {
+      @apply size-3 bottom-0 left-0;
+      animation-delay: calc(var(--bubble-time) * 0.3);
+    }
+
+    &:nth-child(3) {
+      @apply -left-2.5 -top-2.5;
+      animation-delay: calc(var(--bubble-time) * 0.6);
+    }
+
+    &:nth-child(4) {
+      @apply size-7 bottom-0 left-1;
+      animation-delay: calc(var(--bubble-time) * 0.9);
+      animation-duration: calc(var(--bubble-time) * 1.5);
+    }
+
+    &:nth-child(5) {
+      @apply size-4 top-0 left-0;
+      animation-delay: calc(var(--bubble-time) * 1.2);
+      animation-duration: calc(var(--bubble-time) * 1.2);
+    }
+  }
+}
+
+@keyframes bubbleUp {
+  0% {
+    top: 0px;
+    -webkit-transform: scale(0.5);
+    opacity: 0;
+  }
+  20% {
+    top: 0px;
+    -webkit-transform: scale(0.7);
+    opacity: 1;
+  }
+  93% {
+    top: -30px;
+    -webkit-transform: scale(1);
+    opacity: 1;
+  }
+  99% {
+    top: -36px;
+    -webkit-transform: scale(2);
+    opacity: 0;
+  }
+  100% {
+    top: 0px;
+    -webkit-transform: scale(1);
+    opacity: 0;
+  }
+}
