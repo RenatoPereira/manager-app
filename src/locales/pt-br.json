@@ -4,7 +4,8 @@
     "avatar-alt": "Avatar do Usuário"
   },
   "HomePage": {
-    "title": "Página Inicial"
+    "title": "Página Inicial",
+    "new-board": "Novo Quadro"
   },
   "Translation": {
     "en": "Inglês",
@@ -15,5 +16,9 @@
   },
   "SignOut": {
     "button": "Sair"
+  },
+  "NotFound": {
+    "title": "Página não encontrada",
+    "back": "Voltar para a página inicial"
   }
 }

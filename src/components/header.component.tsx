@@ -8,7 +8,7 @@ export const HeaderComponent = async () => {
   const session = await auth()
 
   return (
-    <header className="flex justify-between items-center p-4 bg-highlight shrink-0">
+    <header className="flex justify-between items-center p-4 bg-cyan-800 dark:bg-highlight shrink-0">
       <h1 className="text-2xl font-bold text-primary-inverted">Manager APP</h1>
 
       {session?.user && (

@@ -1,0 +1,7 @@
+.card-board {
+  transform-style: preserve-3d;
+
+  * {
+    transform: translateZ(100px);
+  }
+}

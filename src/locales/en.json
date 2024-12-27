@@ -4,7 +4,8 @@
     "avatar-alt": "User Avatar"
   },
   "HomePage": {
-    "title": "Home Page"
+    "title": "Home Page",
+    "new-board": "New Board"
   },
   "Translation": {
     "en": "English",
@@ -15,5 +16,9 @@
   },
   "SignOut": {
     "button": "Sign Out"
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "back": "Back to home page"
   }
 }

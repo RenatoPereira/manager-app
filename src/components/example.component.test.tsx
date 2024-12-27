@@ -5,7 +5,6 @@ import { setUserLocale } from '@/locales/database.locale'
 
 import { ExampleComponent } from './example.component'
 
-// Mock the required dependencies
 jest.mock('next-intl', () => ({
   useTranslations: () => (key: string) => key
 }))
