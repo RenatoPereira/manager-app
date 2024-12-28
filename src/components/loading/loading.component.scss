@@ -1,6 +1,6 @@
 .loading-bubbles {
   --bubble-time: 1s;
-  @apply relative place-self-center;
+  @apply relative place-self-center h-4;
 
   span {
     @apply block size-6 absolute -ml-3 rounded-full bg-indigo-700/40 dark:bg-white/40 opacity-0;

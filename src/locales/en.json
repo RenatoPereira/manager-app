@@ -1,7 +1,8 @@
 {
   "ManagerApp": {
     "title": "Manager APP",
-    "avatar-alt": "User Avatar"
+    "avatar-alt": "User Avatar",
+    "loading": "Loading..."
   },
   "HomePage": {
     "title": "Home Page",
