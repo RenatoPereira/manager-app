@@ -1,7 +1,8 @@
 {
   "ManagerApp": {
     "title": "App de Gerenciamento",
-    "avatar-alt": "Avatar do Usuário"
+    "avatar-alt": "Avatar do Usuário",
+    "loading": "Carregando..."
   },
   "HomePage": {
     "title": "Página Inicial",
