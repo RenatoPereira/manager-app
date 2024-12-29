@@ -21,5 +21,17 @@
   "NotFound": {
     "title": "Page not found",
     "back": "Back to home page"
+  },
+  "BoardsNew": {
+    "title": "New Board",
+    "name": {
+      "label": "Board Name",
+      "placeholder": "Enter the board name"
+    },
+    "description": {
+      "label": "Board Description",
+      "placeholder": "Enter the board description"
+    },
+    "button": "Create"
   }
 }
