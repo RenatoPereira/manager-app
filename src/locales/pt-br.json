@@ -21,5 +21,17 @@
   "NotFound": {
     "title": "Página não encontrada",
     "back": "Voltar para a página inicial"
+  },
+  "BoardsNew": {
+    "title": "Novo Quadro",
+    "name": {
+      "label": "Nome do Quadro",
+      "placeholder": "Digite o nome do quadro"
+    },
+    "description": {
+      "label": "Descrição do Quadro",
+      "placeholder": "Digite a descrição do quadro"
+    },
+    "button": "Criar"
   }
 }
