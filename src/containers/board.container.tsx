@@ -12,7 +12,7 @@ export const BoardContainer = ({ boards }: Props) => {
   const items = use(boards)
 
   return (
-    <section className="size-full flex p-6 gap-4">
+    <section className="size-full flex p-6 gap-4 flex-wrap content-start">
       {items.map((item) => (
         <div className="w-80" key={item.id}>
           <CardBoardComponent id={item.id} title={item.name} />

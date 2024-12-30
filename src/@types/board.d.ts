@@ -3,3 +3,9 @@ export interface Board {
   name: string
   description: string
 }
+
+export interface BoardRequest {
+  userId?: string
+  name: string
+  description: string
+}

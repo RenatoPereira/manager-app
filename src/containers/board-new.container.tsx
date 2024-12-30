@@ -6,28 +6,12 @@ import { useActionState } from 'react'
 import { InputComponent } from '@/components/inputs/input.component'
 import { SubmitComponent } from '@/components/inputs/submit.component'
 import { TextareaComponent } from '@/components/inputs/textarea.component'
-
-type State = {
-  error?: {
-    name: string
-    description: string
-  }
-}
+import { createBoard } from '@/libs/actions/board-create.action'
 
 export const BoardNewContainer = () => {
   const t = useTranslations('BoardsNew')
-  const initialState: State = {}
 
-  const [state, formAction, pending] = useActionState(async () => {
-    await new Promise((resolve) => setTimeout(resolve, 5000))
-
-    return {
-      error: {
-        name: 'Name is required',
-        description: 'Description is required'
-      }
-    }
-  }, initialState)
+  const [state, formAction, pending] = useActionState(createBoard, undefined)
 
   return (
     <section className="w-full max-w-xl mx-auto flex flex-col gap-10 p-20 items-center justify-center">
@@ -41,16 +25,18 @@ export const BoardNewContainer = () => {
         action={formAction}
       >
         <InputComponent
+          defaultValue={state?.data?.get('name') as string}
           label={t('name.label')}
           name="name"
           placeholder={t('name.placeholder')}
-          error={state?.error?.name}
+          error={state?.errors?.name?._errors}
         />
         <TextareaComponent
+          defaultValue={state?.data?.get('description') as string}
           label={t('description.label')}
           name="description"
           placeholder={t('description.placeholder')}
-          error={state?.error?.description}
+          error={state?.errors?.description?._errors}
         />
         <SubmitComponent
           label={t('button')}

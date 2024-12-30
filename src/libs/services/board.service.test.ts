@@ -37,6 +37,7 @@ describe('BoardService', () => {
         )
       )
     })
+
     it('should authenticate the user', async () => {
       jest.spyOn(headers, 'cookies').mockImplementation(() => {
         return Promise.resolve({
@@ -132,6 +133,60 @@ describe('BoardService', () => {
 
       await expect(boardService.getAll()).rejects.toThrow(
         new GenericException(ErrorCodes.BOARD_UNKNOWN, 'Error fetching boards')
+      )
+    })
+  })
+
+  describe('create', () => {
+    const mockBoard = { name: 'New Board', description: 'Board description' }
+    const mockCreatedBoard = { id: 1, ...mockBoard }
+
+    it('should handle error when creating board not authenticated', async () => {
+      jest.spyOn(headers, 'cookies').mockImplementation(() => {
+        return Promise.resolve({
+          get: jest.fn().mockReturnValue(undefined)
+          /* eslint-disable  @typescript-eslint/no-explicit-any */
+        } as any)
+      })
+
+      await expect(boardService.create(mockBoard)).rejects.toThrow(
+        new GenericException(
+          ErrorCodes.USER_NOT_AUTHENTICATED,
+          'User not authenticated'
+        )
+      )
+    })
+
+    it('should create a board successfully', async () => {
+      jest.spyOn(headers, 'cookies').mockImplementation(() => {
+        return Promise.resolve({
+          get: jest.fn().mockReturnValue({ value: 'test-access-token' })
+          /* eslint-disable  @typescript-eslint/no-explicit-any */
+        } as any)
+      })
+      jest.spyOn(RequesterApi.prototype, 'post').mockImplementation(() => {
+        return Promise.resolve(mockCreatedBoard)
+      })
+
+      await boardService.authenticateRequest()
+      const result = await boardService.create(mockBoard)
+
+      expect(result).toEqual(mockCreatedBoard)
+    })
+
+    it('should handle error when creating board', async () => {
+      jest.spyOn(headers, 'cookies').mockImplementation(() => {
+        return Promise.resolve({
+          get: jest.fn().mockReturnValue({ value: 'test-access-token' })
+          /* eslint-disable  @typescript-eslint/no-explicit-any */
+        } as any)
+      })
+      jest.spyOn(RequesterApi.prototype, 'post').mockImplementation(() => {
+        return Promise.reject(new Error('Failed to create board'))
+      })
+
+      await expect(boardService.create(mockBoard)).rejects.toThrow(
+        new GenericException(ErrorCodes.BOARD_UNKNOWN, 'Error creating board')
       )
     })
   })
