@@ -34,6 +34,9 @@
     },
     "button": "Criar"
   },
+  "BoardDetails": {
+    "title": "Detalhes do Quadro"
+  },
   "Validations": {
     "BoardCreate": {
       "name": {

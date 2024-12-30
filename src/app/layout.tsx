@@ -36,7 +36,7 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen flex flex-col flex-nowrap bg-base`}
       >
-        <main className="flex flex-col h-full relative z-10">
+        <main className="flex flex-col h-full relative z-10 overflow-x-hidden">
           <HeaderComponent />
 
           <section className="flex flex-col h-full relative z-10">

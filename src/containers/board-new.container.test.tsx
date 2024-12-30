@@ -7,8 +7,10 @@ jest.mock('next-intl', () => ({
 }))
 
 describe('BoardNewContainer', () => {
-  it('should render the form with all inputs', () => {
-    render(<BoardNewContainer />)
+  it('should render the form with all inputs', async () => {
+    await act(async () => {
+      render(<BoardNewContainer />)
+    })
 
     expect(screen.getByRole('heading')).toHaveTextContent('title')
     expect(screen.getByLabelText('name.label')).toBeInTheDocument()
@@ -17,7 +19,9 @@ describe('BoardNewContainer', () => {
   })
 
   it('should show loading state when form is submitting', async () => {
-    render(<BoardNewContainer />)
+    await act(async () => {
+      render(<BoardNewContainer />)
+    })
 
     const submitButton = screen.getByRole('button')
 

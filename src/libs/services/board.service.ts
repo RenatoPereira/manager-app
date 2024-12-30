@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers'
 
-import { Board, BoardRequest } from '@/@types/board'
+import { Board, BoardRequest } from '@/@types/board.typr'
 import { RequesterApi } from '@/libs/apis/requester.api'
 import { GenericException } from '@/libs/exceptions/generic.exception'
 import { ErrorCodes } from '@/libs/helpers/error-codes.helper'
@@ -20,6 +20,50 @@ class BoardService {
       throw new GenericException(
         ErrorCodes.USER_NOT_AUTHENTICATED,
         'User not authenticated'
+      )
+    }
+  }
+
+  async get(boardId: string): Promise<Board> {
+    await this.authenticateRequest()
+
+    try {
+      const board = (await this.#requesterApi.get(
+        `/boards/${boardId}`
+      )) as Board
+
+      return board
+
+      /* eslint-disable  @typescript-eslint/no-explicit-any */
+    } catch (error: any) {
+      if (error?.response?.status) {
+        switch (error.response.status) {
+          case 401:
+            throw new GenericException(
+              ErrorCodes.BOARD_NOT_AUTHENTICATED,
+              'User not authenticated'
+            )
+          case 403:
+            throw new GenericException(
+              ErrorCodes.BOARD_NOT_AUTHORIZED,
+              'User not authorized'
+            )
+          case 404:
+            throw new GenericException(
+              ErrorCodes.BOARD_NOT_FOUND,
+              'Board not found'
+            )
+          default:
+            throw new GenericException(
+              ErrorCodes.BOARD_UNKNOWN,
+              'Error fetching board'
+            )
+        }
+      }
+
+      throw new GenericException(
+        ErrorCodes.BOARD_UNKNOWN,
+        'Error fetching board'
       )
     }
   }
@@ -96,7 +140,7 @@ class BoardService {
           default:
             throw new GenericException(
               ErrorCodes.BOARD_UNKNOWN,
-              'Error fetching boards'
+              'Error creating board'
             )
         }
       }

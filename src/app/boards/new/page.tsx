@@ -3,7 +3,7 @@ import { Suspense } from 'react'
 import { BoardNewContainer } from '@/containers/board-new.container'
 import { LoadingContainer } from '@/containers/loading.container'
 
-export default async function BoardsNew() {
+export const BoardsNew = async () => {
   return (
     <Suspense
       fallback={
@@ -16,3 +16,5 @@ export default async function BoardsNew() {
     </Suspense>
   )
 }
+
+export default BoardsNew
