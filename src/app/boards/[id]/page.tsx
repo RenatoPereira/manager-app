@@ -6,12 +6,10 @@ import { boardService } from '@/libs/services/board.service'
 import { columnService } from '@/libs/services/column.service'
 
 type PageProps = {
-  params: {
-    id: string
-  }
+  params: Promise<{ id: string }>
 }
 
-export const BoardsDetails = async ({ params }: PageProps) => {
+export default async function BoardsDetails({ params }: PageProps) {
   const { id } = await params
 
   const board = boardService.get(id)
@@ -29,5 +27,3 @@ export const BoardsDetails = async ({ params }: PageProps) => {
     </Suspense>
   )
 }
-
-export default BoardsDetails
