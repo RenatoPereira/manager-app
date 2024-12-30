@@ -23,6 +23,117 @@ describe('BoardService', () => {
     jest.clearAllMocks()
   })
 
+  describe('get', () => {
+    const mockBoard = { id: 1, name: 'Board 1' }
+
+    it('should throw an error if the user is not authenticated', async () => {
+      await expect(boardService.authenticateRequest()).rejects.toThrow(
+        new GenericException(
+          ErrorCodes.USER_NOT_AUTHENTICATED,
+          'User not authenticated'
+        )
+      )
+    })
+
+    it('should authenticate the user', async () => {
+      jest.spyOn(headers, 'cookies').mockImplementation(() => {
+        return Promise.resolve({
+          get: jest.fn().mockReturnValue({ value: 'test-access-token' })
+          /* eslint-disable  @typescript-eslint/no-explicit-any */
+        } as any)
+      })
+
+      const requesterAuthenticateMock = jest.spyOn(
+        RequesterApi.prototype,
+        'authenticate'
+      )
+
+      await boardService.authenticateRequest()
+
+      await expect(requesterAuthenticateMock).toHaveBeenCalledWith(
+        'test-access-token'
+      )
+    })
+
+    it('should return board successfully', async () => {
+      jest.spyOn(RequesterApi.prototype, 'get').mockImplementation(() => {
+        return Promise.resolve(mockBoard)
+      })
+
+      const result = await boardService.get('1')
+
+      expect(result).toEqual(mockBoard)
+    })
+
+    it('should handle 401 unauthorized error', async () => {
+      const error = new Error() as WretchError
+      error.response = { status: 401 } as Response
+
+      jest.spyOn(RequesterApi.prototype, 'get').mockImplementation(() => {
+        return Promise.reject(error)
+      })
+
+      await expect(boardService.get('1')).rejects.toThrow(
+        new GenericException(
+          ErrorCodes.BOARD_NOT_AUTHENTICATED,
+          'User not authenticated'
+        )
+      )
+    })
+
+    it('should handle 403 forbidden error', async () => {
+      const error = new Error() as WretchError
+      error.response = { status: 403 } as Response
+
+      jest.spyOn(RequesterApi.prototype, 'get').mockImplementation(() => {
+        return Promise.reject(error)
+      })
+
+      await expect(boardService.get('1')).rejects.toThrow(
+        new GenericException(
+          ErrorCodes.BOARD_NOT_AUTHORIZED,
+          'User not authorized'
+        )
+      )
+    })
+
+    it('should handle 404 not found error', async () => {
+      const error = new Error() as WretchError
+      error.response = { status: 404 } as Response
+
+      jest.spyOn(RequesterApi.prototype, 'get').mockImplementation(() => {
+        return Promise.reject(error)
+      })
+
+      await expect(boardService.get('1')).rejects.toThrow(
+        new GenericException(ErrorCodes.BOARD_NOT_FOUND, 'Board not found')
+      )
+    })
+
+    it('should handle unknown WretchError', async () => {
+      const error = new Error() as WretchError
+      error.response = { status: 500 } as Response
+
+      jest.spyOn(RequesterApi.prototype, 'get').mockImplementation(() => {
+        return Promise.reject(error)
+      })
+
+      await expect(boardService.get('1')).rejects.toThrow(
+        new GenericException(ErrorCodes.BOARD_UNKNOWN, 'Error fetching board')
+      )
+    })
+
+    it('should handle generic error', async () => {
+      jest.spyOn(RequesterApi.prototype, 'get').mockImplementation(() => {
+        return Promise.reject(new Error('Generic error'))
+      })
+
+      await expect(boardService.get('1')).rejects.toThrow(
+        new GenericException(ErrorCodes.BOARD_UNKNOWN, 'Error fetching board')
+      )
+    })
+  })
+
   describe('getAll', () => {
     const mockBoards = [
       { id: 1, name: 'Board 1' },
@@ -30,6 +141,13 @@ describe('BoardService', () => {
     ]
 
     it('should throw an error if the user is not authenticated', async () => {
+      jest.spyOn(headers, 'cookies').mockImplementation(() => {
+        return Promise.resolve({
+          get: jest.fn().mockReturnValue(undefined)
+          /* eslint-disable  @typescript-eslint/no-explicit-any */
+        } as any)
+      })
+
       await expect(boardService.authenticateRequest()).rejects.toThrow(
         new GenericException(
           ErrorCodes.USER_NOT_AUTHENTICATED,
@@ -183,6 +301,74 @@ describe('BoardService', () => {
       })
       jest.spyOn(RequesterApi.prototype, 'post').mockImplementation(() => {
         return Promise.reject(new Error('Failed to create board'))
+      })
+
+      await expect(boardService.create(mockBoard)).rejects.toThrow(
+        new GenericException(ErrorCodes.BOARD_UNKNOWN, 'Error creating board')
+      )
+    })
+
+    it('should handle 401 unauthorized error', async () => {
+      const error = new Error() as WretchError
+      error.response = { status: 401 } as Response
+
+      jest.spyOn(RequesterApi.prototype, 'post').mockImplementation(() => {
+        return Promise.reject(error)
+      })
+
+      await expect(boardService.create(mockBoard)).rejects.toThrow(
+        new GenericException(
+          ErrorCodes.BOARD_NOT_AUTHENTICATED,
+          'User not authenticated'
+        )
+      )
+    })
+
+    it('should handle 403 forbidden error', async () => {
+      const error = new Error() as WretchError
+      error.response = { status: 403 } as Response
+
+      jest.spyOn(RequesterApi.prototype, 'post').mockImplementation(() => {
+        return Promise.reject(error)
+      })
+
+      await expect(boardService.create(mockBoard)).rejects.toThrow(
+        new GenericException(
+          ErrorCodes.BOARD_NOT_AUTHORIZED,
+          'User not authorized'
+        )
+      )
+    })
+
+    it('should handle 404 not found error', async () => {
+      const error = new Error() as WretchError
+      error.response = { status: 404 } as Response
+
+      jest.spyOn(RequesterApi.prototype, 'post').mockImplementation(() => {
+        return Promise.reject(error)
+      })
+
+      await expect(boardService.create(mockBoard)).rejects.toThrow(
+        new GenericException(ErrorCodes.BOARD_NOT_FOUND, 'Board not found')
+      )
+    })
+
+    it('should handle unknown WretchError', async () => {
+      const error = new Error() as WretchError
+      error.response = { status: 500 } as Response
+
+      jest.spyOn(RequesterApi.prototype, 'post').mockImplementation(() => {
+        return Promise.reject(error)
+      })
+
+      await expect(boardService.create(mockBoard)).rejects.toThrow(
+        new GenericException(ErrorCodes.BOARD_UNKNOWN, 'Error creating board')
+      )
+    })
+
+    it('should handle generic error', async () => {
+      jest.spyOn(RequesterApi.prototype, 'post').mockImplementation(() => {
+        return Promise.reject(new Error('Generic error'))
       })
 
       await expect(boardService.create(mockBoard)).rejects.toThrow(

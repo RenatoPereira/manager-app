@@ -9,7 +9,7 @@ export const HeaderComponent = async () => {
   const session = await auth()
 
   return (
-    <header className="flex justify-between items-center p-4 bg-cyan-800 dark:bg-highlight shrink-0">
+    <header className="flex justify-between items-center sticky top-0 p-4 px-6 bg-cyan-700/75 dark:bg-indigo-950/90 shrink-0 z-50">
       <h1 className="text-2xl font-bold text-primary-inverted">
         <Link href="/">Manager APP</Link>
       </h1>

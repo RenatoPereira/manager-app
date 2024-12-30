@@ -2,7 +2,7 @@
 
 import { redirect } from 'next/navigation'
 
-import { BoardRequest } from '@/@types/board'
+import { BoardRequest } from '@/@types/board.typr'
 import { boardService } from '@/libs/services/board.service'
 import { BoardCreateValidation } from '@/libs/validations/board-create.validation'
 

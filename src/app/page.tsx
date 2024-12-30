@@ -5,7 +5,6 @@ import { LoadingContainer } from '@/containers/loading.container'
 import { boardService } from '@/libs/services/board.service'
 
 export default async function Home() {
-  await boardService.authenticateRequest()
   const boards = boardService.getAll()
 
   return (
