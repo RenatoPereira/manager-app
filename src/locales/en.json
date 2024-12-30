@@ -33,5 +33,17 @@
       "placeholder": "Enter the board description"
     },
     "button": "Create"
+  },
+  "Validations": {
+    "BoardCreate": {
+      "name": {
+        "required": "Name is required",
+        "too_small": "Name must be at least {minimum, plural, =1 {# character} other {# characters}}"
+      },
+      "description": {
+        "required": "Description is required",
+        "too_small": "Description must be at least {minimum, plural, =1 {# character} other {# characters}}"
+      }
+    }
   }
 }

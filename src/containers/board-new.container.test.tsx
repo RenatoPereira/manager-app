@@ -1,8 +1,7 @@
 import { act, render, screen } from '@testing-library/react'
 
-import { BoardNewContainer } from '../board-new.container'
+import { BoardNewContainer } from './board-new.container'
 
-// Mock the next-intl translations
 jest.mock('next-intl', () => ({
   useTranslations: () => (key: string) => key
 }))
@@ -21,12 +20,12 @@ describe('BoardNewContainer', () => {
     render(<BoardNewContainer />)
 
     const submitButton = screen.getByRole('button')
+
     act(() => {
       submitButton.click()
     })
 
-    expect(submitButton).toBeDisabled()
-    // Check for loading component
     expect(submitButton.firstChild).toBeTruthy()
+    expect(submitButton).toBeDisabled()
   })
 })

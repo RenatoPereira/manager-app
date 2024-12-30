@@ -18,12 +18,14 @@ describe('HeaderComponent', () => {
     jest.clearAllMocks()
   })
 
-  it('renders the app title', async () => {
+  it('renders the app title as a link', async () => {
     ;(auth as jest.Mock).mockResolvedValue(null)
 
     await renderAsync(HeaderComponent, {})
 
-    expect(screen.getByText('Manager APP')).toBeInTheDocument()
+    const titleLink = screen.getByRole('link', { name: 'Manager APP' })
+    expect(titleLink).toBeInTheDocument()
+    expect(titleLink).toHaveAttribute('href', '/')
   })
 
   it('renders user avatar when session exists', async () => {

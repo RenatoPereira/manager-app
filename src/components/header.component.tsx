@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 import { auth } from '@/libs/auth'
 
@@ -9,7 +10,9 @@ export const HeaderComponent = async () => {
 
   return (
     <header className="flex justify-between items-center p-4 bg-cyan-800 dark:bg-highlight shrink-0">
-      <h1 className="text-2xl font-bold text-primary-inverted">Manager APP</h1>
+      <h1 className="text-2xl font-bold text-primary-inverted">
+        <Link href="/">Manager APP</Link>
+      </h1>
 
       {session?.user && (
         <div className="flex items-center gap-2">

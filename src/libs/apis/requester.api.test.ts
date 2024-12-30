@@ -2,7 +2,6 @@ import wretch from 'wretch'
 
 import { RequesterApi } from './requester.api'
 
-// Mock wretch
 jest.mock('wretch')
 
 describe('RequesterApi', () => {
@@ -15,11 +14,11 @@ describe('RequesterApi', () => {
     post: jest.fn().mockReturnThis(),
     put: jest.fn().mockReturnThis(),
     delete: jest.fn().mockReturnThis(),
+    url: jest.fn().mockReturnThis(),
     json: jest.fn()
   }
 
   beforeEach(() => {
-    // Clear all mocks before each test
     jest.clearAllMocks()
     ;(wretch as unknown as jest.Mock).mockReturnValue(mockWretch)
     api = new RequesterApi(mockUrl)
@@ -42,9 +41,17 @@ describe('RequesterApi', () => {
   })
 
   describe('authenticate', () => {
+    it('should not set authentication header with bearer token', () => {
+      const token = undefined
+      api.authenticate(token)
+      api.get(mockUrl)
+      expect(mockWretch.auth).not.toHaveBeenCalled()
+    })
+
     it('should set authentication header with bearer token', () => {
       const token = 'test-token'
       api.authenticate(token)
+      api.get(mockUrl)
       expect(mockWretch.auth).toHaveBeenCalledWith(`Bearer ${token}`)
     })
   })
@@ -61,7 +68,8 @@ describe('RequesterApi', () => {
     describe('get', () => {
       it('should make GET request and return JSON response', async () => {
         const response = await api.get(testUrl)
-        expect(mockWretch.get).toHaveBeenCalledWith(testUrl)
+        expect(mockWretch.get).toHaveBeenCalled()
+        expect(mockWretch.url).toHaveBeenCalledWith(testUrl)
         expect(mockWretch.json).toHaveBeenCalled()
         expect(response).toEqual(mockResponse)
       })
@@ -70,7 +78,8 @@ describe('RequesterApi', () => {
     describe('post', () => {
       it('should make POST request with body and return JSON response', async () => {
         const response = await api.post(testUrl, testBody)
-        expect(mockWretch.post).toHaveBeenCalledWith(testUrl, testBody)
+        expect(mockWretch.post).toHaveBeenCalledWith(testBody)
+        expect(mockWretch.url).toHaveBeenCalledWith(testUrl)
         expect(mockWretch.json).toHaveBeenCalled()
         expect(response).toEqual(mockResponse)
       })
@@ -79,7 +88,8 @@ describe('RequesterApi', () => {
     describe('put', () => {
       it('should make PUT request with body and return JSON response', async () => {
         const response = await api.put(testUrl, testBody)
-        expect(mockWretch.put).toHaveBeenCalledWith(testUrl, testBody)
+        expect(mockWretch.put).toHaveBeenCalledWith(testBody)
+        expect(mockWretch.url).toHaveBeenCalledWith(testUrl)
         expect(mockWretch.json).toHaveBeenCalled()
         expect(response).toEqual(mockResponse)
       })
@@ -88,7 +98,8 @@ describe('RequesterApi', () => {
     describe('delete', () => {
       it('should make DELETE request and return JSON response', async () => {
         const response = await api.delete(testUrl)
-        expect(mockWretch.delete).toHaveBeenCalledWith(testUrl)
+        expect(mockWretch.delete).toHaveBeenCalled()
+        expect(mockWretch.url).toHaveBeenCalledWith(testUrl)
         expect(mockWretch.json).toHaveBeenCalled()
         expect(response).toEqual(mockResponse)
       })
