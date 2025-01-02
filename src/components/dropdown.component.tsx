@@ -1,7 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import { ModalConfirmComponent } from './modal/modal-confirm.component'
 
@@ -24,17 +24,13 @@ export const DropdownComponent = ({ children, options }: Props) => {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false)
   const [option, setOption] = useState<OptionProps | null>(null)
 
-  const handleOpen = () => {
-    setIsOpen(!isOpen)
-  }
-
-  const handleClose = () => {
-    setIsOpen(false)
-  }
-
   const handleOptionClick = (option: OptionProps) => {
-    setOption(option)
-    setIsConfirmOpen(true)
+    if (option.criticalAction) {
+      setOption(option)
+      setIsConfirmOpen(true)
+    } else {
+      option.action()
+    }
   }
 
   const onConfirm = () => {
@@ -42,10 +38,38 @@ export const DropdownComponent = ({ children, options }: Props) => {
     onCancel()
   }
 
-  const onCancel = () => {
+  const onCancel = useCallback(() => {
     setIsConfirmOpen(false)
     setOption(null)
+  }, [])
+
+  const handleOpen = () => {
+    setIsOpen(!isOpen)
   }
+
+  const handleClose = useCallback(() => {
+    setIsOpen(false)
+    onCancel()
+  }, [onCancel])
+
+  const onKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        handleClose()
+      }
+    },
+    [handleClose]
+  )
+
+  useEffect(() => {
+    if (isOpen) {
+      window.addEventListener('keydown', onKeyDown)
+    }
+
+    return () => {
+      window.removeEventListener('keydown', onKeyDown)
+    }
+  }, [isOpen, onKeyDown])
 
   return (
     <>
