@@ -55,13 +55,20 @@ describe('DropdownComponent', () => {
     expect(screen.getByRole('menu')).toHaveClass('opacity-0')
   })
 
-  it('shows confirmation modal for actions', async () => {
+  it('shows confirmation modal for actions critical actions', async () => {
     const user = userEvent.setup()
 
     render(<DropdownComponent {...defaultProps} />)
 
     const button = screen.getByText('Toggle')
     await user.click(button)
+
+    const editButton = screen.getByText('Edit')
+    await user.click(editButton)
+    expect(
+      screen.queryByText('Are you sure you want to Edit?')
+    ).not.toBeInTheDocument()
+
     const deleteButton = screen.getByText('Delete')
     await user.click(deleteButton)
 
@@ -116,5 +123,47 @@ describe('DropdownComponent', () => {
 
     expect(deleteButton).toHaveClass('text-red-500')
     expect(editButton).toHaveClass('text-cyan-800')
+  })
+
+  it('closes dropdown when ESC key is pressed', async () => {
+    const user = userEvent.setup()
+
+    render(<DropdownComponent {...defaultProps} />)
+
+    // Open the dropdown first
+    const button = screen.getByText('Toggle')
+    await user.click(button)
+
+    expect(screen.getByRole('menu')).toHaveClass('opacity-100')
+
+    // Simulate ESC key press
+    await user.keyboard('{Escape}')
+
+    expect(screen.getByRole('menu')).toHaveClass('opacity-0')
+  })
+
+  it('closes confirmation modal when ESC key is pressed', async () => {
+    const user = userEvent.setup()
+
+    render(<DropdownComponent {...defaultProps} />)
+
+    // Open the dropdown and trigger confirmation modal
+    const button = screen.getByText('Toggle')
+    await user.click(button)
+    const deleteButton = screen.getByText('Delete')
+    await user.click(deleteButton)
+
+    expect(
+      screen.getByText('Are you sure you want to Delete?')
+    ).toBeInTheDocument()
+
+    // Simulate ESC key press
+    await user.keyboard('{Escape}')
+
+    // Modal should be closed and action should not be executed
+    expect(
+      screen.queryByText('Are you sure you want to Delete?')
+    ).not.toBeInTheDocument()
+    expect(mockCriticalAction).not.toHaveBeenCalled()
   })
 })
