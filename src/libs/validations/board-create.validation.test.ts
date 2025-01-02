@@ -1,9 +1,7 @@
 import { BoardCreateValidation } from './board-create.validation'
 
 jest.mock('next-intl/server', () => ({
-  getTranslations: jest
-    .fn()
-    .mockImplementation(async () => (key: string) => key)
+  getTranslations: () => (key: string) => key
 }))
 
 describe('BoardCreateValidation', () => {

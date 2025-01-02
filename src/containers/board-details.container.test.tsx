@@ -5,6 +5,10 @@ import { Column } from '@/@types/column.type'
 
 import { BoardDetailsContainer } from './board-details.container'
 
+jest.mock('next-intl', () => ({
+  useTranslations: () => (key: string) => key
+}))
+
 describe('BoardDetailsContainer', () => {
   const mockBoard: Board = {
     id: '1',
@@ -43,7 +47,7 @@ describe('BoardDetailsContainer', () => {
       )
     })
 
-    expect(screen.getByText('Test Board')).toBeInTheDocument()
+    expect(screen.getByDisplayValue('Test Board')).toBeInTheDocument()
   })
 
   it('renders all columns', async () => {

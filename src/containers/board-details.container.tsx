@@ -2,6 +2,7 @@ import { use } from 'react'
 
 import { Board } from '@/@types/board.typr'
 import { Column } from '@/@types/column.type'
+import { BoardHeaderComponent } from '@/components/board/board-header.component'
 import { ColumnComponent } from '@/components/column/column.component'
 
 type Props = {
@@ -15,9 +16,7 @@ export const BoardDetailsContainer = ({ board, columns }: Props) => {
 
   return (
     <section className="w-full flex flex-col gap-6 p-6">
-      <h1 className="text-2xl font-medium text-cyan-800 dark:text-white">
-        {boardContent.name}
-      </h1>
+      <BoardHeaderComponent board={boardContent} />
 
       <div className="w-full flex gap-6">
         {items.map((item) => (
