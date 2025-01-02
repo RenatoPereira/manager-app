@@ -6,7 +6,7 @@ import { useActionState } from 'react'
 import { InputComponent } from '@/components/inputs/input.component'
 import { SubmitComponent } from '@/components/inputs/submit.component'
 import { TextareaComponent } from '@/components/inputs/textarea.component'
-import { createBoard } from '@/libs/actions/board-create.action'
+import { createBoard } from '@/libs/actions/board.action'
 
 export const BoardNewContainer = () => {
   const t = useTranslations('BoardsNew')

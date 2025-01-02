@@ -2,7 +2,11 @@
   "ManagerApp": {
     "title": "Manager APP",
     "avatar-alt": "User Avatar",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "modal": {
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    }
   },
   "HomePage": {
     "title": "Home Page",
@@ -35,7 +39,11 @@
     "button": "Create"
   },
   "BoardDetails": {
-    "title": "Board Details"
+    "title": "Board Details",
+    "settings": {
+      "delete": "Delete Board",
+      "toggle": "Open/Close Settings Menu"
+    }
   },
   "Validations": {
     "BoardCreate": {

@@ -2,7 +2,11 @@
   "ManagerApp": {
     "title": "App de Gerenciamento",
     "avatar-alt": "Avatar do Usuário",
-    "loading": "Carregando..."
+    "loading": "Carregando...",
+    "modal": {
+      "cancel": "Cancelar",
+      "confirm": "Confirmar"
+    }
   },
   "HomePage": {
     "title": "Página Inicial",
@@ -35,7 +39,11 @@
     "button": "Criar"
   },
   "BoardDetails": {
-    "title": "Detalhes do Quadro"
+    "title": "Detalhes do Quadro",
+    "settings": {
+      "delete": "Excluir Quadro",
+      "toggle": "Abrir/Fechar Menu de Configurações"
+    }
   },
   "Validations": {
     "BoardCreate": {

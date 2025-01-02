@@ -151,6 +151,95 @@ class BoardService {
       )
     }
   }
+
+  async update(board: Partial<Board>): Promise<Board> {
+    await this.authenticateRequest()
+
+    try {
+      const res = (await this.#requesterApi.put(
+        `/boards/${board.id}`,
+        board
+      )) as Board
+
+      return res
+
+      /* eslint-disable  @typescript-eslint/no-explicit-any */
+    } catch (error: any) {
+      if (error?.response?.status) {
+        switch (error.response.status) {
+          case 401:
+            throw new GenericException(
+              ErrorCodes.BOARD_NOT_AUTHENTICATED,
+              'User not authenticated'
+            )
+          case 403:
+            throw new GenericException(
+              ErrorCodes.BOARD_NOT_AUTHORIZED,
+              'User not authorized'
+            )
+          case 404:
+            throw new GenericException(
+              ErrorCodes.BOARD_NOT_FOUND,
+              'Board not found'
+            )
+          default:
+            throw new GenericException(
+              ErrorCodes.BOARD_UNKNOWN,
+              'Error updating board'
+            )
+        }
+      }
+
+      throw new GenericException(
+        ErrorCodes.BOARD_UNKNOWN,
+        'Error updating board'
+      )
+    }
+  }
+
+  async delete(boardId: string): Promise<boolean> {
+    await this.authenticateRequest()
+
+    try {
+      const res = (await this.#requesterApi.delete(
+        `/boards/${boardId}`
+      )) as boolean
+
+      return res
+
+      /* eslint-disable  @typescript-eslint/no-explicit-any */
+    } catch (error: any) {
+      if (error?.response?.status) {
+        switch (error.response.status) {
+          case 401:
+            throw new GenericException(
+              ErrorCodes.BOARD_NOT_AUTHENTICATED,
+              'User not authenticated'
+            )
+          case 403:
+            throw new GenericException(
+              ErrorCodes.BOARD_NOT_AUTHORIZED,
+              'User not authorized'
+            )
+          case 404:
+            throw new GenericException(
+              ErrorCodes.BOARD_NOT_FOUND,
+              'Board not found'
+            )
+          default:
+            throw new GenericException(
+              ErrorCodes.BOARD_UNKNOWN,
+              'Error deleting board'
+            )
+        }
+      }
+
+      throw new GenericException(
+        ErrorCodes.BOARD_UNKNOWN,
+        'Error deleting board'
+      )
+    }
+  }
 }
 
 const boardService = new BoardService()

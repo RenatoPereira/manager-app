@@ -5,7 +5,7 @@ import { z } from 'zod'
 
 const BoardCreateSchema = z.object({
   name: z.string().min(3),
-  description: z.string().nullable()
+  description: z.string().optional()
 })
 
 export type BoardCreateSchema = z.infer<typeof BoardCreateSchema>
