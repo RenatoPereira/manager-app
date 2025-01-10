@@ -3,6 +3,7 @@ import { use } from 'react'
 import { Board } from '@/@types/board.typr'
 import { Column } from '@/@types/column.type'
 import { BoardHeaderComponent } from '@/components/board/board-header.component'
+import { ColumnNewComponent } from '@/components/column/column-new.component'
 import { ColumnComponent } from '@/components/column/column.component'
 
 type Props = {
@@ -15,13 +16,13 @@ export const BoardDetailsContainer = ({ board, columns }: Props) => {
   const items = use(columns)
 
   return (
-    <section className="w-full flex flex-col gap-6 p-6">
+    <section className="w-full h-[89vh] flex flex-col gap-6 p-6 flex-nowrap">
       <BoardHeaderComponent board={boardContent} />
 
-      <div className="w-full flex gap-6">
+      <div className="w-full min-h-full flex gap-6 overflow-x-auto">
         {items.map((item) => (
           <div
-            className="w-80"
+            className="w-80 shrink-0"
             key={item.id}
             data-testid={`mock-column-${item.id}`}
           >
@@ -29,7 +30,9 @@ export const BoardDetailsContainer = ({ board, columns }: Props) => {
           </div>
         ))}
 
-        <div className="w-80"></div>
+        <div className="w-80 shrink-0">
+          <ColumnNewComponent />
+        </div>
       </div>
     </section>
   )

@@ -1,4 +1,4 @@
-import { BoardCreateValidation } from './board-create.validation'
+import { BoardCreateValidation } from './board.validation'
 
 jest.mock('next-intl/server', () => ({
   getTranslations: () => (key: string) => key

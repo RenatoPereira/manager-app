@@ -9,6 +9,10 @@ jest.mock('next-intl', () => ({
   useTranslations: () => (key: string) => key
 }))
 
+jest.mock('@/components/column/column-new.component', () => ({
+  ColumnNewComponent: () => <div>ColumnNewComponent</div>
+}))
+
 describe('BoardDetailsContainer', () => {
   const mockBoard: Board = {
     id: '1',
@@ -22,13 +26,15 @@ describe('BoardDetailsContainer', () => {
       id: '1',
       name: 'To Do',
       tasks: [],
-      order: 1
+      order: 1,
+      boardId: '1'
     },
     {
       id: '2',
       name: 'In Progress',
       tasks: [],
-      order: 2
+      order: 2,
+      boardId: '1'
     }
   ]
 
@@ -60,10 +66,10 @@ describe('BoardDetailsContainer', () => {
       )
     })
 
-    const columns = screen.getAllByTestId(/mock-column/)
+    const columns = screen.getAllByRole('region')
     expect(columns).toHaveLength(2)
-    expect(columns[0]).toHaveTextContent('To Do')
-    expect(columns[1]).toHaveTextContent('In Progress')
+    expect(columns[0].querySelector('input')).toHaveDisplayValue('To Do')
+    expect(columns[1].querySelector('input')).toHaveDisplayValue('In Progress')
   })
 
   it('renders an empty column container at the end', async () => {
@@ -76,7 +82,7 @@ describe('BoardDetailsContainer', () => {
       )
     })
 
-    const containers = screen.getAllByTestId(/mock-column/)
-    expect(containers).toHaveLength(mockColumns.length)
+    const columns = screen.getAllByRole('region')
+    expect(columns).toHaveLength(mockColumns.length)
   })
 })

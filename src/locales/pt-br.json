@@ -43,7 +43,8 @@
     "settings": {
       "delete": "Excluir Quadro",
       "toggle": "Abrir/Fechar Menu de Configurações"
-    }
+    },
+    "new-column": "Nova Coluna"
   },
   "Validations": {
     "BoardCreate": {
@@ -54,6 +55,12 @@
       "description": {
         "required": "Descrição é obrigatória",
         "too_small": "Descrição deve ter pelo menos {minimum, plural, =1 {# caractere} other {# caracteres}}"
+      }
+    },
+    "ColumnUpdate": {
+      "name": {
+        "required": "Título inválido",
+        "too_small": "Título deve ter pelo menos {minimum, plural, =1 {# caractere} other {# caracteres}}"
       }
     }
   }
