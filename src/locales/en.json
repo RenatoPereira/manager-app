@@ -43,7 +43,8 @@
     "settings": {
       "delete": "Delete Board",
       "toggle": "Open/Close Settings Menu"
-    }
+    },
+    "new-column": "New Column"
   },
   "Validations": {
     "BoardCreate": {
@@ -54,6 +55,12 @@
       "description": {
         "required": "Description is required",
         "too_small": "Description must be at least {minimum, plural, =1 {# character} other {# characters}}"
+      }
+    },
+    "ColumnUpdate": {
+      "name": {
+        "required": "Title is required",
+        "too_small": "Title must be at least {minimum, plural, =1 {# character} other {# characters}}"
       }
     }
   }

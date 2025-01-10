@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation'
 
 import { Board, BoardRequest } from '@/@types/board.typr'
 import { boardService } from '@/libs/services/board.service'
-import { BoardCreateValidation } from '@/libs/validations/board-create.validation'
+import { BoardCreateValidation } from '@/libs/validations/board.validation'
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export const createBoard = async (_: any, formData: FormData) => {

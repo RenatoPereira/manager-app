@@ -75,7 +75,7 @@ describe('ColumnService', () => {
 
       await expect(columnService.getFromBoard('1')).rejects.toThrow(
         new GenericException(
-          ErrorCodes.BOARD_NOT_AUTHENTICATED,
+          ErrorCodes.COLUMN_NOT_AUTHENTICATED,
           'User not authenticated'
         )
       )
@@ -91,7 +91,7 @@ describe('ColumnService', () => {
 
       await expect(columnService.getFromBoard('1')).rejects.toThrow(
         new GenericException(
-          ErrorCodes.BOARD_NOT_AUTHORIZED,
+          ErrorCodes.COLUMN_NOT_AUTHORIZED,
           'User not authorized'
         )
       )
@@ -119,7 +119,7 @@ describe('ColumnService', () => {
       })
 
       await expect(columnService.getFromBoard('1')).rejects.toThrow(
-        new GenericException(ErrorCodes.BOARD_UNKNOWN, 'Error fetching boards')
+        new GenericException(ErrorCodes.COLUMN_UNKNOWN, 'Error fetching boards')
       )
     })
 
@@ -129,7 +129,189 @@ describe('ColumnService', () => {
       })
 
       await expect(columnService.getFromBoard('1')).rejects.toThrow(
-        new GenericException(ErrorCodes.BOARD_UNKNOWN, 'Error fetching boards')
+        new GenericException(ErrorCodes.COLUMN_UNKNOWN, 'Error fetching boards')
+      )
+    })
+  })
+
+  describe('create', () => {
+    const mockColumnRequest = {
+      name: 'New Column',
+      boardId: '1',
+      order: 1,
+      tasks: []
+    }
+    const mockColumn = {
+      id: '1',
+      name: 'New Column',
+      boardId: '1',
+      tasks: [],
+      order: 1
+    }
+
+    it('should create column successfully', async () => {
+      jest.spyOn(RequesterApi.prototype, 'post').mockImplementation(() => {
+        return Promise.resolve([mockColumn])
+      })
+
+      const result = await columnService.create(mockColumnRequest)
+
+      expect(result).toEqual([mockColumn])
+    })
+
+    it('should handle 401 unauthorized error', async () => {
+      const error = new Error() as WretchError
+      error.response = { status: 401 } as Response
+
+      jest.spyOn(RequesterApi.prototype, 'post').mockImplementation(() => {
+        return Promise.reject(error)
+      })
+
+      await expect(columnService.create(mockColumnRequest)).rejects.toThrow(
+        new GenericException(
+          ErrorCodes.COLUMN_NOT_AUTHENTICATED,
+          'User not authenticated'
+        )
+      )
+    })
+
+    it('should handle 403 forbidden error', async () => {
+      const error = new Error() as WretchError
+      error.response = { status: 403 } as Response
+
+      jest.spyOn(RequesterApi.prototype, 'post').mockImplementation(() => {
+        return Promise.reject(error)
+      })
+
+      await expect(columnService.create(mockColumnRequest)).rejects.toThrow(
+        new GenericException(
+          ErrorCodes.COLUMN_NOT_AUTHORIZED,
+          'User not authorized'
+        )
+      )
+    })
+
+    it('should handle 404 not found error', async () => {
+      const error = new Error() as WretchError
+      error.response = { status: 404 } as Response
+
+      jest.spyOn(RequesterApi.prototype, 'post').mockImplementation(() => {
+        return Promise.reject(error)
+      })
+
+      await expect(columnService.create(mockColumnRequest)).rejects.toThrow(
+        new GenericException(ErrorCodes.COLUMN_NOT_FOUND, 'Column not found')
+      )
+    })
+
+    it('should handle 500 internal server error', async () => {
+      const error = new Error() as WretchError
+      error.response = { status: 500 } as Response
+
+      jest.spyOn(RequesterApi.prototype, 'post').mockImplementation(() => {
+        return Promise.reject(error)
+      })
+
+      await expect(columnService.create(mockColumnRequest)).rejects.toThrow(
+        new GenericException(ErrorCodes.COLUMN_UNKNOWN, 'Error creating column')
+      )
+    })
+
+    it('should handle unknown error', async () => {
+      jest.spyOn(RequesterApi.prototype, 'post').mockImplementation(() => {
+        return Promise.reject(new Error('Generic error'))
+      })
+
+      await expect(columnService.create(mockColumnRequest)).rejects.toThrow(
+        new GenericException(ErrorCodes.COLUMN_UNKNOWN, 'Error creating column')
+      )
+    })
+  })
+
+  describe('update', () => {
+    const mockColumnUpdate = { id: '1', name: 'Updated Column' }
+    const mockUpdatedColumn = {
+      id: '1',
+      name: 'Updated Column',
+      boardId: '1',
+      tasks: []
+    }
+
+    it('should update column successfully', async () => {
+      jest.spyOn(RequesterApi.prototype, 'put').mockImplementation(() => {
+        return Promise.resolve(mockUpdatedColumn)
+      })
+
+      const result = await columnService.update(mockColumnUpdate)
+
+      expect(result).toEqual(mockUpdatedColumn)
+    })
+
+    it('should handle 401 unauthorized error', async () => {
+      const error = new Error() as WretchError
+      error.response = { status: 401 } as Response
+
+      jest.spyOn(RequesterApi.prototype, 'put').mockImplementation(() => {
+        return Promise.reject(error)
+      })
+
+      await expect(columnService.update(mockColumnUpdate)).rejects.toThrow(
+        new GenericException(
+          ErrorCodes.COLUMN_NOT_AUTHENTICATED,
+          'User not authenticated'
+        )
+      )
+    })
+
+    it('should handle 403 forbidden error', async () => {
+      const error = new Error() as WretchError
+      error.response = { status: 403 } as Response
+
+      jest.spyOn(RequesterApi.prototype, 'put').mockImplementation(() => {
+        return Promise.reject(error)
+      })
+
+      await expect(columnService.update(mockColumnUpdate)).rejects.toThrow(
+        new GenericException(
+          ErrorCodes.COLUMN_NOT_AUTHORIZED,
+          'User not authorized'
+        )
+      )
+    })
+
+    it('should handle 404 not found error', async () => {
+      const error = new Error() as WretchError
+      error.response = { status: 404 } as Response
+
+      jest.spyOn(RequesterApi.prototype, 'put').mockImplementation(() => {
+        return Promise.reject(error)
+      })
+
+      await expect(columnService.update(mockColumnUpdate)).rejects.toThrow(
+        new GenericException(ErrorCodes.COLUMN_NOT_FOUND, 'Column not found')
+      )
+    })
+
+    it('should handle 500 internal server error', async () => {
+      const error = new Error() as WretchError
+      error.response = { status: 500 } as Response
+
+      jest.spyOn(RequesterApi.prototype, 'put').mockImplementation(() => {
+        return Promise.reject(error)
+      })
+
+      await expect(columnService.update(mockColumnUpdate)).rejects.toThrow(
+        new GenericException(ErrorCodes.COLUMN_UNKNOWN, 'Error updating column')
+      )
+    })
+
+    it('should handle unknown error', async () => {
+      jest.spyOn(RequesterApi.prototype, 'put').mockImplementation(() => {
+        return Promise.reject(new Error('Generic error'))
+      })
+
+      await expect(columnService.update(mockColumnUpdate)).rejects.toThrow(
+        new GenericException(ErrorCodes.COLUMN_UNKNOWN, 'Error updating column')
       )
     })
   })

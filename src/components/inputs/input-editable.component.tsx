@@ -14,6 +14,7 @@ type Props = {
   hiddenFields?: Field[]
   textSize?: 'sm' | 'md' | 'lg' | 'xl' | '2xl'
   error?: string[]
+  width?: string
 }
 
 type Field = {
@@ -27,7 +28,8 @@ export const InputEditableComponent = ({
   onSubmit,
   textSize = 'sm',
   error,
-  hiddenFields
+  hiddenFields,
+  width = ''
 }: Props) => {
   const hasError = error && error.length > 0
 
@@ -74,7 +76,7 @@ export const InputEditableComponent = ({
         name={name}
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
-        className={`py-2 bg-transparent border-b text-${textSize} outline-none text-cyan-900 dark:text-white ${
+        className={`${width} py-2 bg-transparent border-b text-${textSize} outline-none text-cyan-900 dark:text-white ${
           isEditing
             ? hasError
               ? 'border-red-500'

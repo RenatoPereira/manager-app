@@ -5,4 +5,12 @@ export type Column = {
   name: string
   order: number
   tasks: Task[]
+  boardId: string
+}
+
+export type ColumnRequest = {
+  name: string
+  order: number
+  boardId: string
+  tasks: Task[]
 }

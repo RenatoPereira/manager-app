@@ -36,7 +36,7 @@ describe('ColumnComponent', () => {
 
   it('should render column name correctly', () => {
     render(<ColumnComponent {...defaultProps} />)
-    expect(screen.getByText('Test Column')).toBeInTheDocument()
+    expect(screen.getByDisplayValue('Test Column')).toBeInTheDocument()
   })
 
   it('should render all tasks', () => {
@@ -47,7 +47,7 @@ describe('ColumnComponent', () => {
 
   it('should render empty column when no tasks are provided', () => {
     render(<ColumnComponent {...defaultProps} tasks={[]} />)
-    const taskElements = screen.queryAllByRole('article') // Assuming CardTaskComponent has role="article"
+    const taskElements = screen.queryAllByRole('article')
     expect(taskElements).toHaveLength(0)
   })
 
