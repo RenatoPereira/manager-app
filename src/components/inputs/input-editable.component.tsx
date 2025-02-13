@@ -5,14 +5,14 @@ import { IoMdCheckmark } from 'react-icons/io'
 import { IoClose } from 'react-icons/io5'
 import { MdOutlineModeEdit } from 'react-icons/md'
 
-import { LoadingComponent } from '../loading/loading.component'
+import { LoadingComponent } from '@/components/loading/loading.component'
 
 type Props = {
   name: string
   value: string
   onSubmit: (payload: FormData) => void
   hiddenFields?: Field[]
-  textSize?: 'sm' | 'md' | 'lg' | 'xl' | '2xl'
+  textSize?: 'sm' | 'base' | 'lg' | 'xl' | '2xl'
   error?: string[]
   width?: string
 }

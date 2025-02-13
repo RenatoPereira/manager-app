@@ -5,9 +5,8 @@ import { useParams, useRouter } from 'next/navigation'
 import { useActionState, useEffect } from 'react'
 import { HiPlus } from 'react-icons/hi'
 
+import { LoadingComponent } from '@/components/loading'
 import { createColumn } from '@/libs/actions/column.action'
-
-import { LoadingComponent } from '../loading'
 
 export const ColumnNewComponent = () => {
   const t = useTranslations('BoardDetails')

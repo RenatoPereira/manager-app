@@ -42,7 +42,7 @@ export const BoardHeaderComponent = ({ board }: Props) => {
         name="name"
         value={(state?.data?.get('name') as string) || board.name}
         onSubmit={formAction}
-        textSize="2xl"
+        textSize="xl"
         hiddenFields={[{ name: 'boardId', value: board.id }]}
         error={state?.errors}
       />
