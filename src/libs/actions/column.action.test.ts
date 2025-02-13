@@ -1,14 +1,7 @@
-import { redirect } from 'next/navigation'
-
 import { columnService } from '@/libs/services/column.service'
 import { ColumnUpdateValidation } from '@/libs/validations/column.validation'
 
-import { updateColumn } from './column.action'
-import { createColumn } from './column.action'
-
-jest.mock('next/navigation', () => ({
-  redirect: jest.fn()
-}))
+import { createColumn, deleteColumn, updateColumn } from './column.action'
 
 jest.mock('@/libs/validations/column.validation', () => ({
   ColumnUpdateValidation: jest.fn()
@@ -17,11 +10,58 @@ jest.mock('@/libs/validations/column.validation', () => ({
 jest.mock('@/libs/services/column.service', () => ({
   columnService: {
     update: jest.fn(),
-    create: jest.fn()
+    create: jest.fn(),
+    delete: jest.fn()
   }
 }))
 
 describe('column.action', () => {
+  describe('createColumn', () => {
+    let mockFormData: FormData
+
+    beforeEach(() => {
+      mockFormData = new FormData()
+      mockFormData.append('boardId', 'test-board-id')
+
+      jest.clearAllMocks()
+    })
+
+    it('should create a column with default values', async () => {
+      const expectedColumnRequest = {
+        boardId: 'test-board-id',
+        name: 'New Column',
+        order: 0,
+        tasks: []
+      }
+
+      const mockCreatedColumn = {
+        id: 'test-column-id',
+        ...expectedColumnRequest
+      }
+
+      ;(columnService.create as jest.Mock).mockResolvedValue(mockCreatedColumn)
+
+      const result = await createColumn({}, mockFormData)
+
+      expect(columnService.create).toHaveBeenCalledWith(expectedColumnRequest)
+      expect(result).toEqual(mockCreatedColumn)
+    })
+
+    it('should handle column creation failure', async () => {
+      ;(columnService.create as jest.Mock).mockResolvedValue(null)
+
+      const result = await createColumn({}, mockFormData)
+
+      expect(columnService.create).toHaveBeenCalledWith({
+        boardId: 'test-board-id',
+        name: 'New Column',
+        order: 0,
+        tasks: []
+      })
+      expect(result).toBeNull()
+    })
+  })
+
   describe('updateColumn', () => {
     let mockFormData: FormData
 
@@ -75,7 +115,6 @@ describe('column.action', () => {
       })
 
       expect(columnService.update).not.toHaveBeenCalled()
-      expect(redirect).not.toHaveBeenCalled()
     })
 
     it('should handle column update failure', async () => {
@@ -94,53 +133,25 @@ describe('column.action', () => {
         id: 'test-column-id',
         name: 'Test Column'
       })
-      expect(redirect).not.toHaveBeenCalled()
     })
   })
 
-  describe('createColumn', () => {
+  describe('deleteColumn', () => {
     let mockFormData: FormData
 
     beforeEach(() => {
       mockFormData = new FormData()
-      mockFormData.append('boardId', 'test-board-id')
+      mockFormData.append('columnId', 'test-column-id')
 
       jest.clearAllMocks()
     })
 
-    it('should create a column with default values', async () => {
-      const expectedColumnRequest = {
-        boardId: 'test-board-id',
-        name: 'New Column',
-        order: 0,
-        tasks: []
-      }
+    it('should delete board', async () => {
+      ;(columnService.delete as jest.Mock).mockResolvedValue(true)
 
-      const mockCreatedColumn = {
-        id: 'test-column-id',
-        ...expectedColumnRequest
-      }
+      await deleteColumn({}, mockFormData)
 
-      ;(columnService.create as jest.Mock).mockResolvedValue(mockCreatedColumn)
-
-      const result = await createColumn({}, mockFormData)
-
-      expect(columnService.create).toHaveBeenCalledWith(expectedColumnRequest)
-      expect(result).toEqual(mockCreatedColumn)
-    })
-
-    it('should handle column creation failure', async () => {
-      ;(columnService.create as jest.Mock).mockResolvedValue(null)
-
-      const result = await createColumn({}, mockFormData)
-
-      expect(columnService.create).toHaveBeenCalledWith({
-        boardId: 'test-board-id',
-        name: 'New Column',
-        order: 0,
-        tasks: []
-      })
-      expect(result).toBeNull()
+      expect(columnService.delete).toHaveBeenCalledWith('test-column-id')
     })
   })
 })

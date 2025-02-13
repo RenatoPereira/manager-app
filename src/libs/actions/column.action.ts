@@ -43,3 +43,9 @@ export const updateColumn = async (_: any, formData: FormData) => {
     }
   }
 }
+
+export const deleteColumn = async (_: any, formData: FormData) => {
+  const columnId = formData.get('columnId') as string
+
+  return await columnService.delete(columnId)
+}

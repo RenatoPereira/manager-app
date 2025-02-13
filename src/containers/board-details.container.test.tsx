@@ -9,6 +9,12 @@ jest.mock('next-intl', () => ({
   useTranslations: () => (key: string) => key
 }))
 
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({
+    refresh: jest.fn()
+  })
+}))
+
 jest.mock('@/components/column/column-new.component', () => ({
   ColumnNewComponent: () => <div>ColumnNewComponent</div>
 }))

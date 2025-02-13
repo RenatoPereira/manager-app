@@ -4,6 +4,13 @@ import { Task } from '@/@types/tasks.type'
 
 import { ColumnComponent } from './column.component'
 
+// Mock the dependencies
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({
+    refresh: jest.fn()
+  })
+}))
+
 describe('ColumnComponent', () => {
   const mockTasks: Task[] = [
     {
@@ -55,9 +62,14 @@ describe('ColumnComponent', () => {
     render(<ColumnComponent {...defaultProps} />)
     const columnSection = screen.getByRole('region')
     expect(columnSection).toHaveClass(
+      'bg-emerald-50/10',
       'dark:bg-violet-950/50',
-      'rounded-lg',
-      'p-4'
+      'rounded-md',
+      'p-4',
+      'pt-2',
+      'border-t-4',
+      'border-violet-800/30',
+      'group/column'
     )
   })
 })

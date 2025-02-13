@@ -157,6 +157,50 @@ class ColumnService {
       )
     }
   }
+
+  async delete(columnId: string): Promise<boolean> {
+    await this.authenticateRequest()
+
+    try {
+      const res = (await this.#requesterApi.delete(
+        `/columns/${columnId}`
+      )) as boolean
+
+      return res
+
+      /* eslint-disable  @typescript-eslint/no-explicit-any */
+    } catch (error: any) {
+      if (error?.response?.status) {
+        switch (error.response.status) {
+          case 401:
+            throw new GenericException(
+              ErrorCodes.COLUMN_NOT_AUTHENTICATED,
+              'User not authenticated'
+            )
+          case 403:
+            throw new GenericException(
+              ErrorCodes.COLUMN_NOT_AUTHORIZED,
+              'User not authorized'
+            )
+          case 404:
+            throw new GenericException(
+              ErrorCodes.COLUMN_NOT_FOUND,
+              'Column not found'
+            )
+          default:
+            throw new GenericException(
+              ErrorCodes.COLUMN_UNKNOWN,
+              'Error deleting column'
+            )
+        }
+      }
+
+      throw new GenericException(
+        ErrorCodes.COLUMN_UNKNOWN,
+        'Error deleting column'
+      )
+    }
+  }
 }
 
 const columnService = new ColumnService()

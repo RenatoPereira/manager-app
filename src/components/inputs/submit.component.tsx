@@ -1,4 +1,4 @@
-import { LoadingComponent } from '../loading/loading.component'
+import { LoadingComponent } from '@/components/loading/loading.component'
 
 type Props = {
   label: string
