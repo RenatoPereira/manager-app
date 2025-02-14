@@ -5,7 +5,8 @@ export default {
   content: [
     './src/containers/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}'
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/assets/**/*.{js,ts,jsx,tsx,mdx}'
   ],
   theme: {},
   plugins: []

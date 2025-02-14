@@ -1,5 +1,8 @@
+@reference '../../assets/setup.scss';
+
 .loading-bubbles {
   --bubble-time: 1s;
+
   @apply relative place-self-center h-4;
 
   span {

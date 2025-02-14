@@ -1,20 +1,14 @@
+@reference '../../assets/setup.scss';
+
 .bg-squares {
   --timer: 45s;
-  @apply absolute top-0 left-0 w-screen h-screen overflow-hidden bg-gradient-to-b from-[var(--color-denary)] to-[var(--color-octonary)];
-
-  .dark & {
-    @apply from-[var(--color-tertiary)] to-[var(--color-primary)];
-  }
+  @apply absolute top-0 left-0 w-screen h-screen overflow-hidden bg-gradient-to-b from-[var(--color-denary)] to-[var(--color-octonary)] dark:from-[var(--color-tertiary)] dark:to-[var(--color-primary)];
 
   span {
-    @apply absolute block size-8 -bottom-32 bg-[var(--color-quaternary)] opacity-5;
+    @apply absolute block size-8 -bottom-32 bg-[var(--color-quaternary)] dark:bg-white opacity-5;
 
     animation: square var(--timer) infinite;
     transition-timing-function: linear;
-
-    .dark & {
-      @apply bg-white;
-    }
 
     &:nth-child(1) {
       @apply left-[10%];

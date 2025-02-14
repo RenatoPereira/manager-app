@@ -85,7 +85,7 @@ export const DropdownComponent = ({ children, options }: Props) => {
         <button
           role="button"
           aria-label={t('settings.toggle')}
-          className="relative z-10"
+          className="relative z-10 cursor-pointer transition-opacity duration-300 ease-in-out hover:opacity-80"
           onClick={handleOpen}
         >
           {children}

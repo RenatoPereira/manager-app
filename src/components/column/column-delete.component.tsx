@@ -34,7 +34,7 @@ export const ColumnDeleteComponent = ({ columnId }: Props) => {
       <button
         type="submit"
         aria-label="Delete column"
-        className={`transition-opacity duration-300 text-sm mt-2 ${
+        className={`cursor-pointer transition-opacity duration-300 ease-in-out hover:opacity-80 text-sm mt-2 ${
           isPending ? 'opacity-100' : 'group-hover/column:opacity-100 opacity-0'
         }`}
         disabled={isPending}
