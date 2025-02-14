@@ -11,6 +11,10 @@ jest.mock('next/navigation', () => ({
   })
 }))
 
+jest.mock('@/components/card/card-task-new.component', () => ({
+  CardTaskNewComponent: () => <div>CardTaskNewComponent</div>
+}))
+
 describe('ColumnComponent', () => {
   const mockTasks: Task[] = [
     {

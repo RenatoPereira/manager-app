@@ -12,9 +12,11 @@ type Props = {
   value: string
   onSubmit: (payload: FormData) => void
   hiddenFields?: Field[]
-  textSize?: 'sm' | 'base' | 'lg' | 'xl' | '2xl'
+  textSize?: 'xs' | 'sm' | 'base' | 'lg' | 'xl' | '2xl'
   error?: string[]
   width?: string
+  opened?: boolean
+  onCancel?: () => void
 }
 
 type Field = {
@@ -29,7 +31,9 @@ export const InputEditableComponent = ({
   textSize = 'sm',
   error,
   hiddenFields,
-  width = ''
+  width = '',
+  opened = false,
+  onCancel
 }: Props) => {
   const hasError = error && error.length > 0
 
@@ -46,6 +50,7 @@ export const InputEditableComponent = ({
 
   const cancelEdit = () => {
     setIsEditing(false)
+    onCancel?.()
   }
 
   const handleSubmit = (payload: FormData) => {
@@ -55,6 +60,12 @@ export const InputEditableComponent = ({
 
     cancelEdit()
   }
+
+  useEffect(() => {
+    if (opened) {
+      handleEdit()
+    }
+  }, [opened])
 
   useEffect(() => {
     if (!isEditing) {

@@ -21,6 +21,18 @@ describe('CardTaskComponent', () => {
     expect(screen.getByText('Test Description')).toBeInTheDocument()
   })
 
+  it('renders task without description', () => {
+    const taskWithoutDescription = {
+      ...mockTask,
+      description: undefined
+    }
+
+    render(<CardTaskComponent task={taskWithoutDescription} />)
+
+    expect(screen.getByText('Test Task')).toBeInTheDocument()
+    expect(screen.queryByText('Test Description')).not.toBeInTheDocument()
+  })
+
   it('renders a link with correct href', () => {
     render(<CardTaskComponent task={mockTask} />)
 

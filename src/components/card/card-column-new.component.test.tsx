@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 
-import { ColumnNewComponent } from './column-new.component'
+import { CardColumnNewComponent } from './card-column-new.component'
 
 // Mock the dependencies
 jest.mock('next/navigation', () => ({
@@ -22,14 +22,14 @@ describe('ColumnNewComponent', () => {
   })
 
   it('renders the new column button with correct text', () => {
-    render(<ColumnNewComponent />)
+    render(<CardColumnNewComponent />)
 
     expect(screen.getByRole('button')).toBeInTheDocument()
     expect(screen.getByText('new-column')).toBeInTheDocument()
   })
 
   it('contains hidden input with correct board ID', () => {
-    render(<ColumnNewComponent />)
+    render(<CardColumnNewComponent />)
 
     const hiddenInput = screen.getByRole('textbox', {
       hidden: true

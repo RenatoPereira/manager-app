@@ -8,7 +8,7 @@ import { HiPlus } from 'react-icons/hi'
 import { LoadingComponent } from '@/components/loading'
 import { createColumn } from '@/libs/actions/column.action'
 
-export const ColumnNewComponent = () => {
+export const CardColumnNewComponent = () => {
   const t = useTranslations('BoardDetails')
 
   const [state, action, isPending] = useActionState(createColumn, null)
@@ -23,7 +23,7 @@ export const ColumnNewComponent = () => {
   }, [state, router])
 
   return (
-    <form action={action}>
+    <form className="w-full pt-1" action={action}>
       <input
         role="textbox"
         type="hidden"
@@ -32,16 +32,15 @@ export const ColumnNewComponent = () => {
       />
       <button
         type="submit"
-        className="card-board card-board flex flex-col items-center justify-center p-6 gap-2 rounded-lg w-full aspect-video border-2 border-cyan-800/50 dark:border-white/50 text-cyan-900 dark:text-white text-5xl opacity-80 hover:opacity-100 transition-opacity duration-300"
+        className="w-full flex items-center gap-2 p-4 dark:bg-violet-950/50 border-l-4 border-teal-800/50 dark:border-white/50 hover:bg-teal-50/20 dark:hover:bg-violet-900/30 transition-colors duration-300 rounded-md shadow-md font-medium text-cyan-900 dark:text-white"
         disabled={isPending}
       >
         {isPending ? (
           <LoadingComponent scale={0.8} />
         ) : (
-          <>
-            <HiPlus />
-            <p className="text-base font-bold">{t('new-column')}</p>
-          </>
+          <span className="flex items-center gap-1 text-sm">
+            <HiPlus /> {t('new-column')}
+          </span>
         )}
       </button>
     </form>

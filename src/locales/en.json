@@ -62,6 +62,18 @@
         "required": "Title is required",
         "too_small": "Title must be at least {minimum, plural, =1 {# character} other {# characters}}"
       }
+    },
+    "TaskCreate": {
+      "name": {
+        "required": "Title is required",
+        "too_small": "Title must be at least {minimum, plural, =1 {# character} other {# characters}}"
+      },
+      "columnId": {
+        "required": "Column is required"
+      }
     }
+  },
+  "CreateTask": {
+    "create": "Create Task"
   }
 }

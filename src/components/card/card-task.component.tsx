@@ -16,9 +16,11 @@ export const CardTaskComponent = ({ task }: Props) => {
           {name}
         </h4>
 
-        <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2">
-          {description}
-        </p>
+        {description && (
+          <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2">
+            {description}
+          </p>
+        )}
       </article>
     </Link>
   )

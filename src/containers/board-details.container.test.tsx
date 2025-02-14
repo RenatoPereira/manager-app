@@ -15,8 +15,8 @@ jest.mock('next/navigation', () => ({
   })
 }))
 
-jest.mock('@/components/column/column-new.component', () => ({
-  ColumnNewComponent: () => <div>ColumnNewComponent</div>
+jest.mock('@/components/card/card-column-new.component', () => ({
+  CardColumnNewComponent: () => <div>CardColumnNewComponent</div>
 }))
 
 describe('BoardDetailsContainer', () => {
