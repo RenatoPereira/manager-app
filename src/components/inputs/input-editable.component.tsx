@@ -114,6 +114,7 @@ export const InputEditableComponent = ({
       >
         {!isEditing ? (
           <button
+            className="cursor-pointer transition-opacity duration-300 ease-in-out hover:opacity-80"
             role="button"
             type="button"
             onClick={handleEdit}
@@ -124,6 +125,7 @@ export const InputEditableComponent = ({
         ) : (
           <>
             <button
+              className="cursor-pointer transition-opacity duration-300 ease-in-out hover:opacity-80"
               role="button"
               type="button"
               onClick={cancelEdit}
@@ -132,7 +134,12 @@ export const InputEditableComponent = ({
               <IoClose />
             </button>
 
-            <button role="button" type="submit" aria-label="Submit">
+            <button
+              className="cursor-pointer transition-opacity duration-300 ease-in-out hover:opacity-80"
+              role="button"
+              type="submit"
+              aria-label="Submit"
+            >
               <IoMdCheckmark />
             </button>
           </>
