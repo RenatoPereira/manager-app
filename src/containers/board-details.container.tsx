@@ -3,7 +3,7 @@ import { use } from 'react'
 import { Board } from '@/@types/board.typr'
 import { Column } from '@/@types/column.type'
 import { BoardHeaderComponent } from '@/components/board/board-header.component'
-import { ColumnNewComponent } from '@/components/column/column-new.component'
+import { CardColumnNewComponent } from '@/components/card/card-column-new.component'
 import { ColumnComponent } from '@/components/column/column.component'
 
 type Props = {
@@ -31,7 +31,7 @@ export const BoardDetailsContainer = ({ board, columns }: Props) => {
         ))}
 
         <div className="w-80 shrink-0">
-          <ColumnNewComponent />
+          <CardColumnNewComponent />
         </div>
       </div>
     </section>

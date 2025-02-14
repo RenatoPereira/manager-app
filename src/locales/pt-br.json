@@ -62,6 +62,18 @@
         "required": "Título inválido",
         "too_small": "Título deve ter pelo menos {minimum, plural, =1 {# caractere} other {# caracteres}}"
       }
+    },
+    "TaskCreate": {
+      "name": {
+        "required": "Título inválido",
+        "too_small": "Título deve ter pelo menos {minimum, plural, =1 {# caractere} other {# caracteres}}"
+      },
+      "columnId": {
+        "required": "Coluna inválida"
+      }
     }
+  },
+  "CreateTask": {
+    "create": "Criar Tarefa"
   }
 }

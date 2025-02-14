@@ -25,15 +25,14 @@ describe('ColumnUpdateValidation', () => {
 
   it('should validate column with null name', async () => {
     const formData = new FormData()
-    formData.append('name', 'Test Column')
 
     const result = await ColumnUpdateValidation(formData)
 
-    expect(result.success).toBe(true)
-    if (result.success) {
-      expect(result.data).toEqual({
-        name: 'Test Column'
-      })
+    expect(result.success).toBe(false)
+
+    if (!result.success) {
+      expect(result.error.errors[0].path).toEqual(['name'])
+      expect(result.error.errors[0].message).toBe('name.invalid_type')
     }
   })
 

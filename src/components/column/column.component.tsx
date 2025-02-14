@@ -3,6 +3,7 @@
 import { useActionState } from 'react'
 
 import { Task } from '@/@types/tasks.type'
+import { CardTaskNewComponent } from '@/components/card/card-task-new.component'
 import { CardTaskComponent } from '@/components/card/card-task.component'
 import { InputEditableComponent } from '@/components/inputs/input-editable.component'
 import { updateColumn } from '@/libs/actions/column.action'
@@ -43,6 +44,7 @@ export const ColumnComponent = ({ name, tasks, id }: Props) => {
 
       <div className="w-full flex flex-col gap-4">
         {tasks?.map((task) => <CardTaskComponent task={task} key={task.id} />)}
+        <CardTaskNewComponent columnId={id} />
       </div>
     </section>
   )
