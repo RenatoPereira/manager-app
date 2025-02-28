@@ -3,8 +3,8 @@
 import { useTranslations } from 'next-intl'
 import { useActionState } from 'react'
 
+import { ButtonComponent } from '@/components/buttons/button.component'
 import { InputComponent } from '@/components/inputs/input.component'
-import { SubmitComponent } from '@/components/inputs/submit.component'
 import { TextareaComponent } from '@/components/inputs/textarea.component'
 import { createBoard } from '@/libs/actions/board.action'
 
@@ -38,7 +38,7 @@ export const BoardNewContainer = () => {
           placeholder={t('description.placeholder')}
           error={state?.errors?.description?._errors}
         />
-        <SubmitComponent
+        <ButtonComponent
           label={t('button')}
           disabled={pending}
           loading={pending}

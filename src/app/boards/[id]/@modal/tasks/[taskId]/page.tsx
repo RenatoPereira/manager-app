@@ -3,30 +3,25 @@ import { Suspense } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 
 import { GenericErrorComponent } from '@/components/error/generic.component'
-import { BoardDetailsContainer } from '@/containers/board-details.container'
+import { TaskComponent } from '@/components/task/task.component'
 import { LoadingContainer } from '@/containers/loading.container'
-import { boardService } from '@/libs/services/board.service'
-import { columnService } from '@/libs/services/column.service'
+import { taskService } from '@/libs/services/task.service'
 
 type PageProps = {
-  params: Promise<{ id: string }>
+  params: Promise<{ taskId: string }>
 }
 
-export default async function BoardsDetails({ params }: PageProps) {
+export default async function TaskDetails({ params }: PageProps) {
   const t = await getTranslations('Error')
 
-  const { id } = await params
+  const { taskId } = await params
 
-  const board = boardService.get(id)
-  const columns = columnService.getFromBoard(id)
+  const task = await taskService.get(taskId)
 
   return (
     <ErrorBoundary
       fallback={
-        <GenericErrorComponent
-          title={t('board.title')}
-          back={t('board.back')}
-        />
+        <GenericErrorComponent title={t('task.title')} back={t('task.back')} />
       }
     >
       <Suspense
@@ -36,7 +31,7 @@ export default async function BoardsDetails({ params }: PageProps) {
           </section>
         }
       >
-        <BoardDetailsContainer board={board} columns={columns} />
+        <TaskComponent task={task} />
       </Suspense>
     </ErrorBoundary>
   )

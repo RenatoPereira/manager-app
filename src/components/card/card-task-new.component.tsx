@@ -47,7 +47,7 @@ export const CardTaskNewComponent = ({ columnId }: Props) => {
   ) : (
     <button
       type="button"
-      className="flex items-center gap-1 p-3 dark:bg-violet-950/50 border-l-4 border-teal-800/50 dark:border-white/50 hover:bg-teal-50/20 dark:hover:bg-violet-900/30 transition-colors duration-300 rounded-md shadow-md font-medium text-cyan-900 dark:text-white text-xs"
+      className="flex items-center gap-1 p-3 dark:bg-violet-950/50 border-l-4 border-teal-800/50 dark:border-white/50 hover:bg-teal-50/20 dark:hover:bg-violet-900/30 transition-colors duration-300 rounded-md shadow-md font-medium text-cyan-900 dark:text-white text-xs cursor-pointer"
       onClick={() => setCreatingTask(true)}
     >
       <HiPlus />

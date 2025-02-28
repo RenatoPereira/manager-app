@@ -23,6 +23,7 @@
     "next-intl": "^3.26.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-error-boundary": "^5.0.0",
     "react-icons": "^5.4.0",
     "react-parallax-tilt": "^1.7.269",
     "wretch": "^2.11.0",

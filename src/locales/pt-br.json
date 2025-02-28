@@ -22,9 +22,23 @@
   "SignOut": {
     "button": "Sair"
   },
-  "NotFound": {
-    "title": "Página não encontrada",
-    "back": "Voltar para a página inicial"
+  "Error": {
+    "notFound": {
+      "title": "Página não encontrada",
+      "back": "Voltar para a página inicial"
+    },
+    "board": {
+      "title": "Quadro não encontrado",
+      "back": "Voltar para a página inicial"
+    },
+    "task": {
+      "title": "Tarefa não encontrada",
+      "back": "Voltar para a página inicial"
+    },
+    "generic": {
+      "title": "Ocorreu um erro",
+      "back": "Voltar para a página inicial"
+    }
   },
   "BoardsNew": {
     "title": "Novo Quadro",
@@ -71,9 +85,34 @@
       "columnId": {
         "required": "Coluna inválida"
       }
+    },
+    "TaskUpdate": {
+      "taskId": {
+        "required": "Tarefa inválida"
+      },
+      "name": {
+        "required": "Título inválido",
+        "too_small": "Título deve ter pelo menos {minimum, plural, =1 {# caractere} other {# caracteres}}"
+      },
+      "description": {
+        "required": "Descrição inválida",
+        "too_small": "Descrição deve ter pelo menos {minimum, plural, =1 {# caractere} other {# caracteres}}"
+      }
     }
   },
   "CreateTask": {
     "create": "Criar Tarefa"
+  },
+  "Task": {
+    "buttons": {
+      "finish": "Finalizar",
+      "edit": "Editar",
+      "delete": "Excluir"
+    },
+    "priority": {
+      "low": "Baixa",
+      "medium": "Média",
+      "high": "Alta"
+    }
   }
 }
