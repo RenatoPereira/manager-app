@@ -35,7 +35,7 @@ export const ModalConfirmComponent = ({
 
         <div className="flex gap-4 w-full pt-2">
           <button
-            className="bg-red-800 text-white px-4 py-2 rounded-md w-full"
+            className="bg-red-800 text-white px-4 py-2 rounded-md w-full cursor-pointer"
             aria-label={t('modal.cancel')}
             onClick={onClose}
           >
@@ -43,7 +43,7 @@ export const ModalConfirmComponent = ({
           </button>
 
           <button
-            className="bg-cyan-800 text-white px-4 py-2 rounded-md w-full"
+            className="bg-cyan-800 text-white px-4 py-2 rounded-md w-full cursor-pointer"
             aria-label={t('modal.confirm')}
             onClick={handleConfirm}
           >

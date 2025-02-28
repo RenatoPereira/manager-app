@@ -32,7 +32,7 @@ export const CardColumnNewComponent = () => {
       />
       <button
         type="submit"
-        className="w-full flex items-center gap-2 p-4 dark:bg-violet-950/50 border-l-4 border-teal-800/50 dark:border-white/50 hover:bg-teal-50/20 dark:hover:bg-violet-900/30 transition-colors duration-300 rounded-md shadow-md font-medium text-cyan-900 dark:text-white"
+        className="w-full flex items-center gap-2 p-4 dark:bg-violet-950/50 border-l-4 border-teal-800/50 dark:border-white/50 hover:bg-teal-50/20 dark:hover:bg-violet-900/30 transition-colors duration-300 rounded-md shadow-md font-medium text-cyan-900 dark:text-white cursor-pointer"
         disabled={isPending}
       >
         {isPending ? (

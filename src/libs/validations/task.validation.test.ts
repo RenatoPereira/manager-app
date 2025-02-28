@@ -1,4 +1,4 @@
-import { TaskCreateValidation } from './task.validation'
+import { TaskCreateValidation, TaskUpdateValidation } from './task.validation'
 
 jest.mock('next-intl/server', () => ({
   getTranslations: () => (key: string) => key
@@ -64,6 +64,72 @@ describe('TaskCreateValidation', () => {
     if (!result.success) {
       expect(result.error.errors[0].path).toEqual(['columnId'])
       expect(result.error.errors[0].message).toBe('columnId.invalid_type')
+    }
+  })
+})
+
+describe('TaskUpdateValidation', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
+  it('should validate valid task data', async () => {
+    const formData = new FormData()
+    formData.append('name', 'Test task')
+    formData.append('taskId', 'test-task-id')
+
+    const result = await TaskUpdateValidation(formData)
+
+    expect(result.success).toBe(true)
+
+    if (result.success) {
+      expect(result.data).toEqual({
+        name: 'Test task',
+        taskId: 'test-task-id'
+      })
+    }
+  })
+
+  it('should fail valid ation when name is too short', async () => {
+    const formData = new FormData()
+    formData.append('taskId', 'test-task-id')
+    formData.append('name', 'Te')
+
+    const result = await TaskUpdateValidation(formData)
+
+    expect(result.success).toBe(false)
+    if (!result.success) {
+      expect(result.error.errors[0].path).toEqual(['name'])
+      expect(result.error.errors[0].message).toBe('name.too_small')
+    }
+  })
+
+  it('should fail valid ation when description is too short', async () => {
+    const formData = new FormData()
+    formData.append('taskId', 'test-task-id')
+    formData.append('name', 'Test task')
+    formData.append('description', 'Te')
+
+    const result = await TaskUpdateValidation(formData)
+
+    expect(result.success).toBe(false)
+    if (!result.success) {
+      expect(result.error.errors[0].path).toEqual(['description'])
+      expect(result.error.errors[0].message).toBe('description.too_small')
+    }
+  })
+
+  it('should validate task with null taskId', async () => {
+    const formData = new FormData()
+
+    const result = await TaskUpdateValidation(formData)
+    formData.append('name', 'Test task')
+
+    expect(result.success).toBe(false)
+
+    if (!result.success) {
+      expect(result.error.errors[0].path).toEqual(['taskId'])
+      expect(result.error.errors[0].message).toBe('taskId.invalid_type')
     }
   })
 })

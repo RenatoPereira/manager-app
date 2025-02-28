@@ -8,14 +8,14 @@ import { IoClose } from 'react-icons/io5'
 type Props = {
   children: React.ReactNode
   isOpen: boolean
-  onClose: () => void
+  onClose?: () => void
 }
 
 export const ModalComponent = ({ children, isOpen, onClose }: Props) => {
   const onKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        onClose()
+        onClose?.()
       }
     },
     [onClose]
@@ -46,7 +46,7 @@ export const ModalComponent = ({ children, isOpen, onClose }: Props) => {
             />
 
             <button
-              className="fixed top-4 right-4 text-4xl text-cyan-800 dark:text-white hover:scale-110 transition-transform duration-500 ease-in-out"
+              className="fixed top-4 right-4 text-4xl text-cyan-800 dark:text-white hover:scale-110 transition-transform duration-500 ease-in-out cursor-pointer"
               onClick={onClose}
             >
               <IoClose />
@@ -60,7 +60,7 @@ export const ModalComponent = ({ children, isOpen, onClose }: Props) => {
           </TransitionChild>
         </section>
       </Transition>,
-      document.body
+      document?.body
     )
   )
 }

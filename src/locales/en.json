@@ -22,9 +22,23 @@
   "SignOut": {
     "button": "Sign Out"
   },
-  "NotFound": {
-    "title": "Page not found",
-    "back": "Back to home page"
+  "Error": {
+    "notFound": {
+      "title": "Page not found",
+      "back": "Back to home page"
+    },
+    "board": {
+      "title": "Board not found",
+      "back": "Back to home page"
+    },
+    "task": {
+      "title": "Task not found",
+      "back": "Back to home page"
+    },
+    "generic": {
+      "title": "An error occurred",
+      "back": "Back to home page"
+    }
   },
   "BoardsNew": {
     "title": "New Board",
@@ -71,9 +85,34 @@
       "columnId": {
         "required": "Column is required"
       }
+    },
+    "TaskUpdate": {
+      "taskId": {
+        "required": "Task is required"
+      },
+      "name": {
+        "required": "Title is required",
+        "too_small": "Title must be at least {minimum, plural, =1 {# character} other {# characters}}"
+      },
+      "description": {
+        "required": "Description is required",
+        "too_small": "Description must be at least {minimum, plural, =1 {# character} other {# characters}}"
+      }
     }
   },
   "CreateTask": {
     "create": "Create Task"
+  },
+  "Task": {
+    "buttons": {
+      "finish": "Finish",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "priority": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    }
   }
 }
