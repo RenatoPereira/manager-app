@@ -18,7 +18,7 @@ jest.mock('@/libs/services/task.service', () => ({
   }
 }))
 
-describe('  .action', () => {
+describe('Task Action', () => {
   describe('createTask', () => {
     let mockFormData: FormData
 
@@ -26,6 +26,7 @@ describe('  .action', () => {
       mockFormData = new FormData()
       mockFormData.append('name', 'Test task')
       mockFormData.append('columnId', 'test-column-id')
+      mockFormData.append('boardId', 'test-board-id')
       jest.clearAllMocks()
     })
 
@@ -33,12 +34,14 @@ describe('  .action', () => {
       ;(TaskCreateValidation as jest.Mock).mockResolvedValue({
         success: true,
         data: {
-          name: 'Test task'
+          name: 'Test task',
+          boardId: 'test-board-id'
         }
       })
       ;(taskService.create as jest.Mock).mockResolvedValue({
         name: 'Test task',
-        columnId: 'test-column-id'
+        columnId: 'test-column-id',
+        boardId: 'test-board-id'
       })
 
       await createTask({}, mockFormData)
@@ -47,7 +50,8 @@ describe('  .action', () => {
 
       expect(taskService.create).toHaveBeenCalledWith({
         columnId: 'test-column-id',
-        name: 'Test task'
+        name: 'Test task',
+        boardId: 'test-board-id'
       })
     })
 
@@ -78,7 +82,8 @@ describe('  .action', () => {
       ;(TaskCreateValidation as jest.Mock).mockResolvedValue({
         success: true,
         data: {
-          name: 'Test task'
+          name: 'Test task',
+          boardId: 'test-board-id'
         }
       })
       ;(taskService.create as jest.Mock).mockResolvedValue(null)
@@ -88,89 +93,108 @@ describe('  .action', () => {
       expect(TaskCreateValidation).toHaveBeenCalledWith(mockFormData)
       expect(taskService.create).toHaveBeenCalledWith({
         columnId: 'test-column-id',
-        name: 'Test task'
+        name: 'Test task',
+        boardId: 'test-board-id'
       })
     })
 
-    describe('updateTask', () => {
-      let mockFormData: FormData
-
-      beforeEach(() => {
-        mockFormData = new FormData()
-        mockFormData.append('name', 'Test Task')
-        mockFormData.append('taskId', 'test-task-id')
-        jest.clearAllMocks()
-      })
-
-      it('should update a column and redirect on successful validation', async () => {
-        ;(TaskUpdateValidation as jest.Mock).mockResolvedValue({
-          success: true,
-          data: {
-            name: 'Test Task',
-            taskId: 'test-task-id',
-            description: null
-          }
-        })
-        ;(taskService.update as jest.Mock).mockResolvedValue({
-          id: 'test-task-id',
-          name: 'Test Task',
-          description: null
-        })
-
-        await updateTask({}, mockFormData)
-
-        expect(TaskUpdateValidation).toHaveBeenCalledWith(mockFormData)
-
-        expect(taskService.update).toHaveBeenCalledWith({
-          id: 'test-task-id',
-          name: 'Test Task',
-          description: null
-        })
-      })
-
-      it('should return validation errors when validation fails', async () => {
-        const mockValidationError = {
-          format: () => ({
-            name: { message: 'Name is required' },
-            taskId: { message: 'Task is required' }
-          })
+    it('should handle task create failure when boardId is null', async () => {
+      mockFormData.delete('boardId')
+      ;(TaskCreateValidation as jest.Mock).mockResolvedValue({
+        success: true,
+        data: {
+          name: 'Test task',
+          boardId: null
         }
+      })
+      ;(taskService.create as jest.Mock).mockResolvedValue(null)
 
-        ;(TaskUpdateValidation as jest.Mock).mockResolvedValue({
-          success: false,
-          error: mockValidationError
-        })
+      await createTask({}, mockFormData)
 
-        const result = await updateTask({}, mockFormData)
+      expect(TaskCreateValidation).toHaveBeenCalledWith(mockFormData)
+      expect(taskService.create).toHaveBeenCalledWith({
+        columnId: 'test-column-id',
+        name: 'Test task',
+        boardId: null
+      })
+    })
+  })
 
-        expect(TaskUpdateValidation).toHaveBeenCalledWith(mockFormData)
-        expect(result).toEqual({
-          data: mockFormData,
-          errors: mockValidationError.format()
-        })
+  describe('updateTask', () => {
+    let mockFormData: FormData
 
-        expect(taskService.update).not.toHaveBeenCalled()
+    beforeEach(() => {
+      mockFormData = new FormData()
+      mockFormData.append('name', 'Test Task')
+      mockFormData.append('taskId', 'test-task-id')
+      jest.clearAllMocks()
+    })
+
+    it('should update a column and redirect on successful validation', async () => {
+      ;(TaskUpdateValidation as jest.Mock).mockResolvedValue({
+        success: true,
+        data: {
+          name: 'Test Task',
+          taskId: 'test-task-id',
+          description: null
+        }
+      })
+      ;(taskService.update as jest.Mock).mockResolvedValue({
+        id: 'test-task-id',
+        name: 'Test Task'
       })
 
-      it('should handle task update failure', async () => {
-        ;(TaskUpdateValidation as jest.Mock).mockResolvedValue({
-          success: true,
-          data: {
-            name: 'Test Task',
-            taskId: 'test-task-id',
-            description: null
-          }
+      await updateTask({}, mockFormData)
+
+      expect(TaskUpdateValidation).toHaveBeenCalledWith(mockFormData)
+
+      expect(taskService.update).toHaveBeenCalledWith({
+        id: 'test-task-id',
+        name: 'Test Task'
+      })
+    })
+
+    it('should return validation errors when validation fails', async () => {
+      const mockValidationError = {
+        format: () => ({
+          name: { message: 'Name is required' },
+          taskId: { message: 'Task is required' }
         })
-        ;(taskService.update as jest.Mock).mockResolvedValue(null)
+      }
 
-        await updateTask({}, mockFormData)
+      ;(TaskUpdateValidation as jest.Mock).mockResolvedValue({
+        success: false,
+        error: mockValidationError
+      })
 
-        expect(TaskUpdateValidation).toHaveBeenCalledWith(mockFormData)
-        expect(taskService.update).toHaveBeenCalledWith({
-          id: 'test-task-id',
+      const result = await updateTask({}, mockFormData)
+
+      expect(TaskUpdateValidation).toHaveBeenCalledWith(mockFormData)
+      expect(result).toEqual({
+        data: mockFormData,
+        errors: mockValidationError.format()
+      })
+
+      expect(taskService.update).not.toHaveBeenCalled()
+    })
+
+    it('should handle task update failure', async () => {
+      ;(TaskUpdateValidation as jest.Mock).mockResolvedValue({
+        success: true,
+        data: {
           name: 'Test Task',
+          taskId: 'test-task-id',
           description: null
-        })
+        }
+      })
+      ;(taskService.update as jest.Mock).mockResolvedValue(null)
+
+      await updateTask({}, mockFormData)
+
+      expect(TaskUpdateValidation).toHaveBeenCalledWith(mockFormData)
+      expect(taskService.update).toHaveBeenCalledWith({
+        id: 'test-task-id',
+        name: 'Test Task'
       })
     })
   })

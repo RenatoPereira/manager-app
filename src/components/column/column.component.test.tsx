@@ -25,7 +25,8 @@ describe('ColumnComponent', () => {
       priority: 'Low',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
-      boardId: '1'
+      boardId: '1',
+      columnId: '1'
     },
     {
       id: '2',
@@ -35,7 +36,8 @@ describe('ColumnComponent', () => {
       priority: 'High',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
-      boardId: '1'
+      boardId: '1',
+      columnId: '1'
     }
   ]
 

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import { Task } from '@/@types/tasks.type'
+import { limitString, sanitizeString } from '@/libs/helpers/string.helper'
 
 type Props = {
   task: Task
@@ -18,7 +19,7 @@ export const CardTaskComponent = ({ task }: Props) => {
 
         {description && (
           <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2">
-            {description}
+            {limitString(sanitizeString(description), 100)}
           </p>
         )}
       </article>

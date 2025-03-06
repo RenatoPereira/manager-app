@@ -135,7 +135,11 @@ describe('TaskService', () => {
   })
 
   describe('create', () => {
-    const mockTask = { name: 'New Task', columnId: 'test-column-id' }
+    const mockTask = {
+      name: 'New Task',
+      columnId: 'test-column-id',
+      boardId: 'test-board-id'
+    }
     const mockCreatedTask = { id: 1, ...mockTask }
 
     it('should handle error when creating task not authenticated', async () => {

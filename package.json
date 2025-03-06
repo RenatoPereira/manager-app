@@ -26,6 +26,7 @@
     "react-error-boundary": "^5.0.0",
     "react-icons": "^5.4.0",
     "react-parallax-tilt": "^1.7.269",
+    "react-simple-wysiwyg": "^3.2.0",
     "wretch": "^2.11.0",
     "zod": "^3.24.1"
   },

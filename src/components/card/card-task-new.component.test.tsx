@@ -45,10 +45,14 @@ describe('CardTaskNewComponent', () => {
     const input = screen.getByRole('textbox')
     expect(input).toHaveValue('')
 
-    const hiddenInput = screen.getByRole('none', {
+    const hiddenInputs = screen.getAllByRole('none', {
       hidden: true
-    }) as HTMLInputElement
-    expect(hiddenInput).toHaveValue('test-column-id')
+    }) as HTMLInputElement[]
+
+    expect(hiddenInputs[0]).toHaveAttribute('name', 'columnId')
+    expect(hiddenInputs[0]).toHaveValue('test-column-id')
+    expect(hiddenInputs[1]).toHaveAttribute('name', 'boardId')
+    expect(hiddenInputs[1]).toHaveValue('test-board-id')
 
     expect(screen.queryByText('button')).not.toBeInTheDocument()
   })

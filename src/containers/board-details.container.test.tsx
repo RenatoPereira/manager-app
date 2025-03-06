@@ -12,6 +12,9 @@ jest.mock('next-intl', () => ({
 jest.mock('next/navigation', () => ({
   useRouter: () => ({
     refresh: jest.fn()
+  }),
+  useParams: () => ({
+    id: '1'
   })
 }))
 

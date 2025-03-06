@@ -1,4 +1,3 @@
- 
 'use server'
 
 import { Task, TaskRequest } from '@/@types/tasks.type'
@@ -8,19 +7,16 @@ import {
   TaskUpdateValidation
 } from '@/libs/validations/task.validation'
 
- 
-
- 
-
- 
+import { sanitizeObject } from '../helpers/object.helper'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 export const createTask = async (_: any, formData: FormData) => {
+  const boardId = formData.get('boardId') as string
   const columnId = formData.get('columnId') as string
   const name = formData.get('name') as string
 
   const task: TaskRequest = {
+    boardId,
     columnId,
     name
   }
@@ -50,10 +46,13 @@ export const updateTask = async (_: any, formData: FormData) => {
   const taskData: Partial<Task> = {
     id: formData.get('taskId') as string,
     name: formData.get('name') as string,
-    description: formData.get('description') as string
+    description: formData.get('description') as string,
+    priority: formData.get('priority') as string,
+    status: formData.get('status') as string,
+    dueDate: formData.get('dueDate') as string
   }
 
-  const res = await taskService.update(taskData)
+  const res = await taskService.update(sanitizeObject(taskData))
 
   if (res) {
     return {

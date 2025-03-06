@@ -38,6 +38,9 @@ importers:
       react-parallax-tilt:
         specifier: ^1.7.269
         version: 1.7.269(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react-simple-wysiwyg:
+        specifier: ^3.2.0
+        version: 3.2.0(react@19.0.0)
       wretch:
         specifier: ^2.11.0
         version: 2.11.0
@@ -3740,6 +3743,11 @@ packages:
     peerDependencies:
       react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  react-simple-wysiwyg@3.2.0:
+    resolution: {integrity: sha512-Iaqoe3GxnDKtx5otvM1TnYh7GrP+VxysI6QuqKwnbhkqSmo2MPm0xbZYsmNRmO7w4S5AyVlqprRu1MEImqj2sw==}
+    peerDependencies:
+      react: '>=16.8'
 
   react@19.0.0:
     resolution: {integrity: sha512-V8AVnmPIICiWpGfm6GLzCR/W5FXLchHop40W4nXBmdlEceh16rCN8O8LNWm5bh5XUX91fh7KpA+W0TgMKmgTpQ==}
@@ -8672,6 +8680,10 @@ snapshots:
     dependencies:
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
+
+  react-simple-wysiwyg@3.2.0(react@19.0.0):
+    dependencies:
+      react: 19.0.0
 
   react@19.0.0: {}
 

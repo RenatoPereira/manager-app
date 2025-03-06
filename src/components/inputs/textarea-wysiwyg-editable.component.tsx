@@ -1,11 +1,10 @@
-'use client'
-
 import { useEffect, useRef, useState, useTransition } from 'react'
 import { IoMdCheckmark } from 'react-icons/io'
 import { IoClose } from 'react-icons/io5'
 import { MdOutlineModeEdit } from 'react-icons/md'
+import Editor from 'react-simple-wysiwyg'
 
-import { LoadingComponent } from '@/components/loading/loading.component'
+import { LoadingComponent } from '../loading'
 
 type Props = {
   name: string
@@ -16,8 +15,8 @@ type Props = {
   error?: string[]
   width?: string
   opened?: boolean
-  onCancel?: () => void
   placeholder?: string
+  onCancel?: () => void
 }
 
 type Field = {
@@ -25,14 +24,14 @@ type Field = {
   value: string
 }
 
-export const InputEditableComponent = ({
+export const TextareaWysiwygEditableComponent = ({
   name,
   value,
   onSubmit,
   textSize = 'sm',
   error,
   hiddenFields,
-  width = '',
+  width = 'w-full',
   opened = false,
   placeholder = '',
   onCancel
@@ -55,17 +54,26 @@ export const InputEditableComponent = ({
     onCancel?.()
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onChange = (e: any) => {
+    setInputValue(e.target?.value || '')
+  }
+
   const handleSubmit = (payload: FormData) => {
+    payload.set(name, inputValue)
+
     startTransition(() => {
       onSubmit(payload)
     })
 
     cancelEdit()
   }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onChange = (e: any) => {
-    setInputValue(e.target?.value || '')
-  }
+
+  useEffect(() => {
+    if (!isPending && !hasError) {
+      cancelEdit()
+    }
+  }, [isPending, hasError])
 
   useEffect(() => {
     if (opened) {
@@ -82,26 +90,27 @@ export const InputEditableComponent = ({
   return isPending ? (
     <LoadingComponent scale={0.5} />
   ) : (
-    <form
-      className="group w-full flex items-center gap-2"
-      action={handleSubmit}
-    >
-      <input
-        ref={inputRef}
-        role="textbox"
-        type="text"
-        name={name}
-        value={inputValue}
-        onChange={onChange}
-        className={`${width} py-2 bg-transparent border-b text-${textSize} outline-none text-cyan-900 dark:text-white ${
-          isEditing
-            ? hasError
-              ? 'border-red-500'
-              : 'border-cyan-800/80 dark:border-white/80'
-            : 'border-transparent pointer-events-none'
-        }`}
-        placeholder={placeholder}
-      />
+    <form className="group w-full flex items-start gap-2" action={handleSubmit}>
+      {isEditing ? (
+        <div className={width}>
+          <Editor
+            className={`${width} ${hasError ? 'border-red-500' : 'border-cyan-800/80 dark:border-white/80'} text-${textSize} text-left`}
+            value={inputValue}
+            onChange={onChange}
+            autoFocus
+            name={name}
+            disabled={!isEditing}
+            placeholder={placeholder}
+          />
+        </div>
+      ) : (
+        <p
+          className={`${width} text-${textSize} text-cyan-900 dark:text-white text-left`}
+          data-testid="wysiwyg-content"
+           
+          dangerouslySetInnerHTML={{ __html: inputValue }}
+        />
+      )}
 
       {hiddenFields?.map((field) => (
         <input
@@ -114,11 +123,7 @@ export const InputEditableComponent = ({
         />
       ))}
 
-      <div
-        className={`flex items-center gap-2 opacity-0 transition-opacity duration-300 ease-in-out ${
-          isEditing ? 'opacity-100' : 'group-hover:opacity-100'
-        }`}
-      >
+      <div className={`flex items-center gap-2`}>
         {!isEditing ? (
           <button
             className="cursor-pointer transition-opacity duration-300 ease-in-out hover:opacity-80"

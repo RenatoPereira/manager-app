@@ -7,10 +7,11 @@ import { useActionState, useState } from 'react'
 import { Task } from '@/@types/tasks.type'
 import { ButtonComponent } from '@/components/buttons/button.component'
 import { InputEditableComponent } from '@/components/inputs/input-editable.component'
-import { TextareaComponent } from '@/components/inputs/textarea.component'
 import { ModalComponent } from '@/components/modal/modal.component'
 import { updateTask } from '@/libs/actions/task.action'
 import { compareStringsInsensitive } from '@/libs/helpers/string.helper'
+
+import { TextareaWysiwygEditableComponent } from '../inputs/textarea-wysiwyg-editable.component'
 
 type Props = {
   task: Task
@@ -48,11 +49,13 @@ export const TaskComponent = ({ task }: Props) => {
 
         <div className="flex gap-4 w-full border-t border-cyan-800 dark:border-white/50 pt-8">
           <div className="flex flex-col gap-2 w-3/4">
-            <TextareaComponent
+            <TextareaWysiwygEditableComponent
               name="description"
               placeholder="Description"
-              defaultValue={task.description}
+              value={task.description || ''}
               error={state?.errors}
+              onSubmit={formAction}
+              hiddenFields={[{ name: 'taskId', value: task.id }]}
             />
           </div>
 

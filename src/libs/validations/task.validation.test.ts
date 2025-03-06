@@ -13,6 +13,7 @@ describe('TaskCreateValidation', () => {
     const formData = new FormData()
     formData.append('name', 'Test task')
     formData.append('columnId', 'test-column-id')
+    formData.append('boardId', 'test-board-id')
 
     const result = await TaskCreateValidation(formData)
 
@@ -20,7 +21,8 @@ describe('TaskCreateValidation', () => {
     if (result.success) {
       expect(result.data).toEqual({
         name: 'Test task',
-        columnId: 'test-column-id'
+        columnId: 'test-column-id',
+        boardId: 'test-board-id'
       })
     }
   })
@@ -28,6 +30,7 @@ describe('TaskCreateValidation', () => {
   it('should validate task with null name', async () => {
     const formData = new FormData()
     formData.append('columnId', 'test-column-id')
+    formData.append('boardId', 'test-board-id')
 
     const result = await TaskCreateValidation(formData)
 
@@ -43,6 +46,7 @@ describe('TaskCreateValidation', () => {
     const formData = new FormData()
     formData.append('name', 'Te')
     formData.append('columnId', 'test-column-id')
+    formData.append('boardId', 'test-board-id')
 
     const result = await TaskCreateValidation(formData)
 
@@ -55,15 +59,31 @@ describe('TaskCreateValidation', () => {
 
   it('should validate task with null columnId', async () => {
     const formData = new FormData()
+    formData.append('name', 'Test task')
+    formData.append('boardId', 'test-board-id')
 
     const result = await TaskCreateValidation(formData)
-    formData.append('name', 'Test task')
 
     expect(result.success).toBe(false)
 
     if (!result.success) {
       expect(result.error.errors[0].path).toEqual(['columnId'])
       expect(result.error.errors[0].message).toBe('columnId.invalid_type')
+    }
+  })
+
+  it('should validate task with null boardId', async () => {
+    const formData = new FormData()
+    formData.append('name', 'Test task')
+    formData.append('columnId', 'test-column-id')
+
+    const result = await TaskCreateValidation(formData)
+
+    expect(result.success).toBe(false)
+
+    if (!result.success) {
+      expect(result.error.errors[0].path).toEqual(['boardId'])
+      expect(result.error.errors[0].message).toBe('boardId.invalid_type')
     }
   })
 })
@@ -77,7 +97,6 @@ describe('TaskUpdateValidation', () => {
     const formData = new FormData()
     formData.append('name', 'Test task')
     formData.append('taskId', 'test-task-id')
-
     const result = await TaskUpdateValidation(formData)
 
     expect(result.success).toBe(true)
@@ -94,7 +113,6 @@ describe('TaskUpdateValidation', () => {
     const formData = new FormData()
     formData.append('taskId', 'test-task-id')
     formData.append('name', 'Te')
-
     const result = await TaskUpdateValidation(formData)
 
     expect(result.success).toBe(false)
@@ -121,9 +139,10 @@ describe('TaskUpdateValidation', () => {
 
   it('should validate task with null taskId', async () => {
     const formData = new FormData()
+    formData.append('name', 'Test task')
+    formData.append('boardId', 'test-board-id')
 
     const result = await TaskUpdateValidation(formData)
-    formData.append('name', 'Test task')
 
     expect(result.success).toBe(false)
 
