@@ -1,7 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { useActionState, useEffect, useState } from 'react'
 import { HiPlus } from 'react-icons/hi'
 
@@ -14,6 +14,7 @@ type Props = {
 
 export const CardTaskNewComponent = ({ columnId }: Props) => {
   const t = useTranslations('CreateTask')
+  const boardId = useParams().id
 
   const [creatingTask, setCreatingTask] = useState(false)
   const [state, formAction] = useActionState(createTask, {
@@ -37,7 +38,10 @@ export const CardTaskNewComponent = ({ columnId }: Props) => {
         value={(state?.data?.get('name') as string) || ''}
         onSubmit={formAction}
         textSize="xs"
-        hiddenFields={[{ name: 'columnId', value: columnId }]}
+        hiddenFields={[
+          { name: 'columnId', value: columnId },
+          { name: 'boardId', value: boardId as string }
+        ]}
         error={state?.errors}
         width="w-full"
         opened={creatingTask}

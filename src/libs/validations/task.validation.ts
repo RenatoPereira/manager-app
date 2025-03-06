@@ -5,6 +5,7 @@ import { z } from 'zod'
 
 const TaskCreateSchema = z.object({
   columnId: z.string(),
+  boardId: z.string(),
   name: z.string().min(3)
 })
 
@@ -36,6 +37,9 @@ export const TaskCreateValidation = async (formData: FormData) => {
           break
         case 'columnId':
           message = t(`columnId.${issue.code}`)
+          break
+        case 'boardId':
+          message = t(`boardId.${issue.code}`)
           break
       }
 
