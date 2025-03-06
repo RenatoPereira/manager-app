@@ -11,7 +11,8 @@ describe('CardTaskComponent', () => {
     status: 'TODO',
     priority: 'Low',
     createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
+    updatedAt: new Date().toISOString(),
+    columnId: '1'
   }
 
   it('renders task name and description', () => {

@@ -15,4 +15,8 @@ export type TaskRequest = {
   boardId: string
   columnId: string
   name: string
+  description?: string
+  status: string
+  priority: string
+  dueDate?: string
 }
