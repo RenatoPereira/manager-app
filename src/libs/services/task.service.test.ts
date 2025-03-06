@@ -138,9 +138,7 @@ describe('TaskService', () => {
     const mockTask = {
       name: 'New Task',
       columnId: 'test-column-id',
-      boardId: 'test-board-id',
-      status: 'test-status',
-      priority: 'test-priority'
+      boardId: 'test-board-id'
     }
     const mockCreatedTask = { id: 1, ...mockTask }
 

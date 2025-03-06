@@ -16,7 +16,7 @@ export type TaskRequest = {
   columnId: string
   name: string
   description?: string
-  status: string
-  priority: string
+  status?: string
+  priority?: string
   dueDate?: string
 }
