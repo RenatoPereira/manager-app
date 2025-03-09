@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useState } from 'react'
 
-import { ModalConfirmComponent } from './modal/modal-confirm.component'
+import { ModalConfirmComponent } from '@/components/modal/modal-confirm.component'
 
 type Props = {
   children: React.ReactNode

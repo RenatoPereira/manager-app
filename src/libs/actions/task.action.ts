@@ -1,13 +1,12 @@
 'use server'
 
 import { Task, TaskRequest } from '@/@types/tasks.type'
+import { sanitizeObject } from '@/libs/helpers/object.helper'
 import { taskService } from '@/libs/services/task.service'
 import {
   TaskCreateValidation,
   TaskUpdateValidation
 } from '@/libs/validations/task.validation'
-
-import { sanitizeObject } from '../helpers/object.helper'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const createTask = async (_: any, formData: FormData) => {
@@ -60,4 +59,8 @@ export const updateTask = async (_: any, formData: FormData) => {
       errors: null
     }
   }
+}
+
+export const deleteTask = async (task: Task) => {
+  return await taskService.delete(task.id)
 }

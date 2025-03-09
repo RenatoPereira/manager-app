@@ -113,6 +113,12 @@
       "low": "Baixa",
       "medium": "Média",
       "high": "Alta"
+    },
+    "delete": {
+      "title": "Excluir Tarefa",
+      "description": "Tem certeza que deseja excluir a tarefa {taskName}?",
+      "cancel": "Cancelar",
+      "delete": "Excluir"
     }
   }
 }

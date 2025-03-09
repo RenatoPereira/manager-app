@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { act, render, screen } from '@testing-library/react'
 
 import { Task } from '@/@types/tasks.type'
 
@@ -31,12 +31,18 @@ describe('TaskComponent', () => {
     columnId: 'test-column-id'
   }
 
+  const promiseMockTask = new Promise<Task>((resolve) => {
+    resolve(mockTask)
+  })
+
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
-  it('should render the task component', () => {
-    render(<TaskComponent task={mockTask} />)
+  it('should render the task component', async () => {
+    await act(async () => {
+      render(<TaskComponent task={promiseMockTask} />)
+    })
 
     expect(screen.getByDisplayValue('Test task')).toBeInTheDocument()
     expect(screen.getByText('Test description')).toBeInTheDocument()
@@ -49,8 +55,10 @@ describe('TaskComponent', () => {
     expect(buttonDelete).toBeInTheDocument()
   })
 
-  it('should render the task component with the correct priority', () => {
-    render(<TaskComponent task={mockTask} />)
+  it('should render the task component with the correct priority', async () => {
+    await act(async () => {
+      render(<TaskComponent task={promiseMockTask} />)
+    })
 
     expect(screen.getByText('priority.low')).toHaveClass(
       'bg-sky-700 dark:bg-cyan-900 text-white hover:bg-sky-800 dark:hover:bg-cyan-800'
@@ -63,8 +71,18 @@ describe('TaskComponent', () => {
     )
   })
 
-  it('should render the task component with the correct status', () => {
-    render(<TaskComponent task={{ ...mockTask, status: 'todo' }} />)
+  it('should render the task component with the correct status', async () => {
+    await act(async () => {
+      render(
+        <TaskComponent
+          task={
+            new Promise<Task>((resolve) => {
+              resolve({ ...mockTask, status: 'todo' })
+            })
+          }
+        />
+      )
+    })
 
     expect(screen.getByDisplayValue('Test task')).toBeInTheDocument()
     expect(screen.getByText('Test description')).toBeInTheDocument()

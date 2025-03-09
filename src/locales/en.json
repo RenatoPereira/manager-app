@@ -113,6 +113,12 @@
       "low": "Low",
       "medium": "Medium",
       "high": "High"
+    },
+    "delete": {
+      "title": "Delete Task",
+      "description": "Are you sure you want to delete the task {taskName}?",
+      "cancel": "Cancel",
+      "delete": "Delete"
     }
   }
 }

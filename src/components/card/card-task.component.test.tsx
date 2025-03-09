@@ -38,7 +38,7 @@ describe('CardTaskComponent', () => {
     render(<CardTaskComponent task={mockTask} />)
 
     const link = screen.getByRole('link')
-    expect(link).toHaveAttribute('href', '/boards/1/tasks/1')
+    expect(link).toHaveAttribute('href', '/boards/1?taskId=1')
   })
 
   it('truncates long descriptions', () => {
