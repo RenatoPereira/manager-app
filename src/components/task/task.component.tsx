@@ -2,25 +2,26 @@
 
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
-import { useActionState, useState } from 'react'
+import { use, useActionState } from 'react'
 
 import { Task } from '@/@types/tasks.type'
 import { ButtonComponent } from '@/components/buttons/button.component'
 import { InputEditableComponent } from '@/components/inputs/input-editable.component'
+import { TextareaWysiwygEditableComponent } from '@/components/inputs/textarea-wysiwyg-editable.component'
 import { ModalComponent } from '@/components/modal/modal.component'
 import { updateTask } from '@/libs/actions/task.action'
 import { compareStringsInsensitive } from '@/libs/helpers/string.helper'
 
-import { TextareaWysiwygEditableComponent } from '../inputs/textarea-wysiwyg-editable.component'
+import { TaskDeleteComponent } from './task-delete.component'
 
 type Props = {
-  task: Task
+  task: Promise<Task>
 }
 
-export const TaskComponent = ({ task }: Props) => {
+export const TaskComponent = ({ task: taskPromise }: Props) => {
   const t = useTranslations('Task')
 
-  const [isOpen, setIsOpen] = useState(true)
+  const task = use(taskPromise)
 
   const router = useRouter()
 
@@ -31,11 +32,11 @@ export const TaskComponent = ({ task }: Props) => {
   } as any)
 
   const onClose = () => {
-    setIsOpen(false)
     router.push(`/boards/${task.boardId}`)
   }
+
   return (
-    <ModalComponent isOpen={isOpen} onClose={onClose}>
+    <ModalComponent isOpen={true} onClose={onClose}>
       <div className="flex flex-col gap-2 w-3xl max-w-full items-start text-cyan-800 dark:text-white">
         <InputEditableComponent
           name="name"
@@ -98,7 +99,7 @@ export const TaskComponent = ({ task }: Props) => {
               variant="secondary"
               disabled={compareStringsInsensitive(task.status, 'done')}
             />
-            <ButtonComponent label={t('buttons.delete')} variant="danger" />
+            <TaskDeleteComponent task={task} />
           </div>
         </div>
       </div>
