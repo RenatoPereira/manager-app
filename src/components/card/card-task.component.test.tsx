@@ -52,6 +52,6 @@ describe('CardTaskComponent', () => {
     render(<CardTaskComponent task={taskWithLongDescription} />)
 
     const description = screen.getByText(/This is a very long description/)
-    expect(description).toHaveClass('line-clamp-2')
+    expect(description).toHaveClass('truncate')
   })
 })

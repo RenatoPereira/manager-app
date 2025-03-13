@@ -2,21 +2,23 @@
 
 import { useActionState } from 'react'
 
-import { Task } from '@/@types/tasks.type'
 import { CardTaskNewComponent } from '@/components/card/card-task-new.component'
-import { CardTaskComponent } from '@/components/card/card-task.component'
 import { InputEditableComponent } from '@/components/inputs/input-editable.component'
 import { updateColumn } from '@/libs/actions/column.action'
 
 import { ColumnDeleteComponent } from './column-delete.component'
 
-type Props = {
+export type ColumnComponentProps = {
   id: string
   name: string
-  tasks: Task[]
+  children: React.ReactNode
 }
 
-export const ColumnComponent = ({ name, tasks, id }: Props) => {
+export const ColumnComponent = ({
+  name,
+  id,
+  children
+}: ColumnComponentProps) => {
   const [state, formAction] = useActionState(updateColumn, {
     data: null,
     errors: null
@@ -43,7 +45,7 @@ export const ColumnComponent = ({ name, tasks, id }: Props) => {
       </div>
 
       <div className="w-full flex flex-col gap-4">
-        {tasks?.map((task) => <CardTaskComponent task={task} key={task.id} />)}
+        {children}
         <CardTaskNewComponent columnId={id} />
       </div>
     </section>

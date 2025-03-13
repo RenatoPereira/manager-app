@@ -48,24 +48,20 @@ describe('ColumnComponent', () => {
   }
 
   it('should render column name correctly', () => {
-    render(<ColumnComponent {...defaultProps} />)
+    render(
+      <ColumnComponent {...defaultProps}>
+        <div>Test Column</div>
+      </ColumnComponent>
+    )
     expect(screen.getByDisplayValue('Test Column')).toBeInTheDocument()
   })
 
-  it('should render all tasks', () => {
-    render(<ColumnComponent {...defaultProps} />)
-    expect(screen.getByText('Test Task 1')).toBeInTheDocument()
-    expect(screen.getByText('Test Task 2')).toBeInTheDocument()
-  })
-
-  it('should render empty column when no tasks are provided', () => {
-    render(<ColumnComponent {...defaultProps} tasks={[]} />)
-    const taskElements = screen.queryAllByRole('article')
-    expect(taskElements).toHaveLength(0)
-  })
-
   it('should have correct styling classes', () => {
-    render(<ColumnComponent {...defaultProps} />)
+    render(
+      <ColumnComponent {...defaultProps}>
+        <div>Test Column</div>
+      </ColumnComponent>
+    )
     const columnSection = screen.getByRole('region')
     expect(columnSection).toHaveClass(
       'bg-emerald-50/10',
