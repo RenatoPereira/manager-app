@@ -4,7 +4,9 @@ import { Board } from '@/@types/board.typr'
 import { Column } from '@/@types/column.type'
 import { BoardHeaderComponent } from '@/components/board/board-header.component'
 import { CardColumnNewComponent } from '@/components/card/card-column-new.component'
+import { CardTaskComponent } from '@/components/card/card-task.component'
 import { ColumnComponent } from '@/components/column/column.component'
+import { DndMultipleContainerComponent } from '@/components/dnd/dnd-multiple-container.component'
 
 type Props = {
   board: Promise<Board>
@@ -20,15 +22,11 @@ export const BoardDetailsContainer = ({ board, columns }: Props) => {
       <BoardHeaderComponent board={boardContent} />
 
       <div className="w-full min-h-full flex gap-6 overflow-x-auto">
-        {items.map((item) => (
-          <div
-            className="w-80 shrink-0"
-            key={item.id}
-            data-testid={`mock-column-${item.id}`}
-          >
-            <ColumnComponent id={item.id} name={item.name} tasks={item.tasks} />
-          </div>
-        ))}
+        <DndMultipleContainerComponent
+          items={items}
+          renderColumn={ColumnComponent}
+          renderTask={CardTaskComponent}
+        />
 
         <div className="w-80 shrink-0">
           <CardColumnNewComponent />
